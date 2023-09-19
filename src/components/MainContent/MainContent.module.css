@@ -1,2 +1,41 @@
-.article {
+.content {
+	margin: 5px 10px;
+}
+
+.content .author {
+	text-align: end;
+	font-size: 21px;
+	font-style: italic;
+}
+
+.book h1 {
+	text-align: center;
+	margin: 25px 10px 5px;
+	font-size: 45px;
+}
+
+.book h4 {
+	text-align: center;
+	font-size: 25px;
+	font-style: italic;
+	margin-bottom: 25px;
+}
+
+.description {
+	margin-bottom: 20px;
+	font-size: 20px;
+	font-style: italic;
+}
+
+.book-content h2 {
+	margin: 15px 0 15px;
+	text-align: center;
+}
+
+.book-content p {
+	text-indent: 40px;
+	text-align: justify;
+	font-size: 23px;
+	line-height: 28px;
+	margin-bottom: 10px;
 }

@@ -1,11 +1,24 @@
-import SelectorForm from "./SelectorForm";
+import React from "react";
 import classes from "./Header.module.css";
+import SelectorForm from "./SelectorForm";
 
-const Header = () => {
+const Header = ({
+  handleSelectChange,
+  onAboutAuthorClick,
+  showAboutAuthor,
+}) => {
   return (
     <header className={classes.header}>
-      <h1>Your Small Books</h1>
-      <SelectorForm />
+      <h1>Христианские рассказы</h1>
+      <nav className={classes["header-menu"]}>
+        {!showAboutAuthor && (
+          <SelectorForm handleSelectChange={handleSelectChange} />
+        )}
+
+        {!showAboutAuthor && (
+          <button onClick={onAboutAuthorClick}>Об авторе</button>
+        )}
+      </nav>
     </header>
   );
 };

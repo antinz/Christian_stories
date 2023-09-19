@@ -1,13 +1,18 @@
 import React from "react";
 import classes from "./SelectorForm.module.css";
+import { books } from "../../articles";
 
-const SelectorForm = () => {
+const SelectorForm = ({ handleSelectChange }) => {
   return (
-    <select id="book-selector" className={classes["book-selector"]}>
-      <option value="book1">Book 1</option>
-      <option value="book2">Book 2</option>
-      <option value="book3">Book 3</option>
-    </select>
+    <form className={classes["form-center"]}>
+      <label htmlFor="book-selector">Выберите книгу</label>
+      <select id="book-selector" onChange={handleSelectChange}>
+        {books.map((book) => {
+          const { id, bookTitle } = book;
+          return <option key={id}>{bookTitle}</option>;
+        })}
+      </select>
+    </form>
   );
 };
 

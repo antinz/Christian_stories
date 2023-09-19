@@ -1,4 +1,25 @@
-.book-selector {
-	padding: 8px;
+.form-center {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+}
+
+.form-center label {
+	font-size: 25px;
+	margin-bottom: 8px;
+	color: #fff; /* Text color */
+}
+
+.form-center select {
+	position: relative;
+	width: 100%;
+	padding: 15px;
 	font-size: 16px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	background-color: #fff;
+	color: var(--black-color);
+	transition: border-color 0.3s ease-in-out;
+	font-size: 20px;
 }
