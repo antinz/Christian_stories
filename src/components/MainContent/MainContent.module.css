@@ -39,3 +39,9 @@
 	line-height: 28px;
 	margin-bottom: 10px;
 }
+
+@media (max-width: 600px) {
+	.book-content {
+		margin-top: 60px;
+	}
+}

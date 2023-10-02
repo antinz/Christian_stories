@@ -8,6 +8,7 @@
 	align-items: center;
 	flex-direction: row;
 	text-align: center;
+	position: relative;
 }
 
 .about-author__image {
@@ -60,10 +61,8 @@
 @media screen and (max-width: 1000px) {
 	.about-author__center {
 		display: block;
-		margin: 0 auto;
 	}
 	.about-author__image {
 		margin-bottom: 20px;
-		flex-basis: auto;
 	}
 }
