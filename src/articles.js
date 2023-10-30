@@ -2,6 +2,7 @@ export const books = [
   {
     id: 1,
     bookTitle: "Иов",
+    url: "https://drive.google.com/file/d/1HGWzSOTJOOxhDxvfN_rNcUfx-lK-3urn/view?usp=drive_link",
     bookSubtitle: "Страдают ли праведники?",
     description: [
       "Иов. Страдают ли праведники?",
@@ -203,6 +204,7 @@ export const books = [
   {
     id: 2,
     bookTitle: "Бегущие в небеса",
+    url: "https://drive.google.com/file/d/1Sm9JjQh7IX6jID26xdQP7DuVf_cjOWR_/view?usp=drive_link",
     bookSubtitle: "",
     description: [
       "Бегущие в небеса.Ожившая история первого христианства.",
@@ -674,6 +676,7 @@ export const books = [
   {
     id: 3,
     bookTitle: "Рабыня",
+    url: "https://drive.google.com/file/d/1V7monZkP17Om9z7F8jzU5Xfxbo-gwInD/view?usp=drive_link",
     bookSubtitle: "",
     description: [
       "Рабыня.",
@@ -839,6 +842,7 @@ export const books = [
   },
   {
     id: 4,
+    url: "https://drive.google.com/file/d/1LYTaEB3m8HvalUtKx2tuWFiB8KNW8RIo/view?usp=drive_link",
     bookTitle: "Когда иссякнет источник",
     bookSubtitle: "",
     description: [
@@ -1162,6 +1166,7 @@ export const books = [
   },
   {
     id: 5,
+    url: "https://drive.google.com/file/d/12GGHfrgaCAXH_5ygHjohEdU1F_XXTvL1/view?usp=drive_link",
     bookTitle: "Евнух",
     bookSubtitle: "царицы эфиопской",
     description: [
