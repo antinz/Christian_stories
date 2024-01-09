@@ -105,7 +105,7 @@ function SymbolModal({ onClose, content }) {
 }
 
 //MainContent
-function MainContent({ selectedBook, books, onSymbolClick }) {
+function MainContent({ selectedBook, books, onShowModal, onSymbolClick }) {
   const handleDownload = (url, download) => {
     const anchor = document.createElement("a");
     anchor.href = url;
@@ -126,66 +126,71 @@ function MainContent({ selectedBook, books, onSymbolClick }) {
           content,
           url,
           download,
+          bookTags,
         } = book;
-        return (
-          <div key={id}>
-            {selectedBook === bookTitle && (
-              <div className="book">
-                <button
-                  className="download"
-                  onClick={() => handleDownload(url, download)}
-                >
-                  PDF
-                </button>
-                <h1>{bookTitle}</h1>
-                <h4>{bookSubtitle}</h4>
-                {description.map((desc, index) => {
-                  return (
-                    <p className="description" key={index}>
-                      {desc}
-                    </p>
-                  );
-                })}
-                {content.map((chapter, chapterIndex) => {
-                  const { title, text } = chapter;
-                  return (
-                    <div className="book-content" key={chapterIndex}>
-                      <h2>{title}</h2>
-                      {text.map((paragraph, paragraphIndex) => {
-                        const hasSymbol = paragraph.includes("💡");
+
+        if (selectedBook === bookTitle) {
+          return (
+            <div key={id} className="book">
+              <button
+                className="download"
+                onClick={() => handleDownload(url, download)}
+              >
+                PDF
+              </button>
+              <h1>{bookTitle}</h1>
+              <h4>{bookSubtitle}</h4>
+              {description.map((desc, index) => (
+                <p className="description" key={index}>
+                  {desc}
+                </p>
+              ))}
+              {content.map((chapter, chapterIndex) => {
+                const { title, text } = chapter;
+                return (
+                  <div className="book-content" key={chapterIndex}>
+                    <h2>{title}</h2>
+                    {Array.isArray(text) ? (
+                      text.map((paragraph, paragraphIndex) => {
+                        const hasSymbol =
+                          typeof paragraph === "string" &&
+                          paragraph.includes("💡");
                         return (
                           <p key={paragraphIndex}>
                             {hasSymbol
-                              ? paragraph.split("💡").map((tag, index) => (
-                                  <Fragment key={index}>
-                                    {index > 0 &&
-                                      text.map((tag) => {
-                                        const [bookTags] = tag;
-                                        return (
-                                          <span
-                                            className="symbol"
-                                            onClick={() =>
-                                              onSymbolClick(bookTags[0])
-                                            }
-                                          >
-                                            💡
-                                          </span>
-                                        );
-                                      })}
-                                    {tag}
-                                  </Fragment>
-                                ))
+                              ? paragraph.split("💡").map((tag, index) => {
+                                  let symbolIndex = 0;
+                                  const associatedTag = bookTags[symbolIndex++];
+                                  return (
+                                    <Fragment key={index}>
+                                      {index > 0 && (
+                                        <span
+                                          className="symbol"
+                                          onClick={() =>
+                                            onSymbolClick(associatedTag)
+                                          }
+                                        >
+                                          💡
+                                        </span>
+                                      )}
+                                      {tag}
+                                    </Fragment>
+                                  );
+                                })
                               : paragraph}
                           </p>
                         );
-                      })}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        );
+                      })
+                    ) : (
+                      <p key={chapterIndex}>{text}</p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          );
+        }
+        return null;
       })}
     </div>
   );
