@@ -21,3 +21,378 @@ body {
 a {
 	text-decoration: none;
 }
+
+/* CONTAINER */
+.container {
+	position: relative;
+	max-width: 1200px;
+	margin: 20px auto 0;
+	padding: 20px 20px 150px;
+}
+
+/* CONTENT */
+.content {
+	margin: 5px 10px;
+}
+
+.content .author {
+	text-align: end;
+	font-size: 21px;
+	font-style: italic;
+}
+
+.book h1 {
+	text-align: center;
+	margin: 25px 10px 5px;
+	font-size: 45px;
+}
+
+.book h4 {
+	text-align: center;
+	font-size: 25px;
+	font-style: italic;
+	margin-bottom: 25px;
+}
+
+.description {
+	margin-bottom: 20px;
+	font-size: 20px;
+	font-style: italic;
+}
+
+.book-content h2 {
+	margin: 15px 0 15px;
+	text-align: center;
+}
+
+.book-content p {
+	text-indent: 40px;
+	text-align: justify;
+	font-size: 23px;
+	line-height: 28px;
+	margin-bottom: 10px;
+}
+
+.download {
+	position: absolute;
+	top: -10px;
+	left: 5px;
+	outline: none;
+	border: none;
+	background-color: var(--black-color);
+	cursor: pointer;
+	padding: 12px;
+	border-radius: 15px;
+	transition: all 0.6s ease;
+	margin: 20px 10px;
+	font-size: 15px;
+	color: #fff;
+}
+
+.download:hover {
+	opacity: 0.85;
+}
+
+@media (max-width: 600px) {
+	.book-content {
+		margin-top: 60px;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.book-content p {
+		font-size: 24px;
+	}
+}
+/* CONTENT */
+
+/* ABOUT AUTHOR BUTTON */
+.about-author-btn {
+	outline: none;
+	border: none;
+	font-size: 25px;
+	color: var(--black-color);
+	background-color: var(--bg-color);
+	cursor: pointer;
+	padding: 15px;
+	border-radius: 15px;
+	transition: all 0.6s ease;
+	margin-top: 35px;
+}
+
+.about-author-btn:hover {
+	background-color: #1edaab;
+}
+/* ABOUT AUTHOR BUTTON */
+
+/* HEADER */
+.header {
+	background-color: var(--black-color);
+	color: #fff;
+	padding: 2rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	max-width: 100%;
+	flex-wrap: wrap;
+	text-align: center;
+}
+
+.header-menu {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 15px;
+}
+
+.header h1 {
+	font-size: 35px;
+}
+
+.nav-btn {
+	position: absolute;
+	left: 15px;
+	top: 15px;
+	padding: 5px;
+	cursor: pointer;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	color: #fff;
+	font-size: 20px;
+	display: none;
+	z-index: 997;
+}
+@media (max-width: 1000px) {
+	.header {
+		width: 100%;
+		max-width: 1000px;
+	}
+	.header-menu {
+		display: none;
+	}
+	.header h1 {
+		font-size: 25px;
+		margin-left: 40px;
+	}
+
+	.nav-btn {
+		display: block;
+	}
+}
+
+/* HEADER */
+
+/* FORM */
+
+.form-center {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+}
+
+.form-center label {
+	font-size: 25px;
+	margin-bottom: 8px;
+	color: #fff; /* Text color */
+}
+
+.form-center select {
+	position: relative;
+	width: 100%;
+	padding: 15px;
+	font-size: 16px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	background-color: #fff;
+	color: var(--black-color);
+	transition: border-color 0.3s ease-in-out;
+	font-size: 20px;
+}
+
+@media screen and (max-width: 700px) {
+	.form-center {
+		display: block;
+		margin: 20px auto;
+	}
+	.form-center label {
+		font-size: 20px;
+	}
+	.form-center select {
+		padding: 10px;
+	}
+}
+/* FORM */
+
+/* BACK TO TOP */
+.backToTop {
+	position: fixed;
+	bottom: 130px;
+	right: 30px;
+	background-color: var(--black-color);
+	color: #fff;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: opacity 0.3s ease;
+	opacity: 0;
+	z-index: 999;
+	font-size: 22px;
+}
+
+.backToTop.visible {
+	opacity: 1;
+}
+
+@media (max-width: 1200px) {
+	.backToTop {
+		bottom: 30px;
+		right: 20px;
+	}
+}
+
+/* ABOUT AUTHOR */
+.about-author {
+	display: block;
+	text-align: center;
+}
+
+.about-author__center {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	text-align: center;
+	position: relative;
+}
+
+.about-author__image {
+	flex-basis: 40%;
+	padding: 20px;
+	max-width: 500px;
+	height: 300px;
+	display: flex;
+	justify-content: center; /* Center horizontally within the image container */
+	align-items: center;
+}
+
+.about-author__image img {
+	max-width: 100%;
+	max-height: 100%;
+	border-radius: 15px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.about-author-desc {
+	flex-basis: 60%;
+	padding: 20px;
+}
+.about-author-desc h1 {
+	margin-bottom: 20px;
+}
+
+.about-author-desc p {
+	text-align: justify;
+	font-size: 23px;
+	line-height: 28px;
+	margin-bottom: 10px;
+}
+.about-author-btn {
+	margin-top: 20px;
+}
+
+.about-author-back button {
+	text-align: center;
+	outline: none;
+	border: none;
+	font-size: 25px;
+	color: #fff;
+	background-color: #333;
+	cursor: pointer;
+	padding: 15px;
+	border-radius: 15px;
+}
+.about-author-back button:hover {
+	opacity: 0.85;
+}
+
+@media screen and (max-width: 1000px) {
+	.about-author__center {
+		display: block;
+	}
+	.about-author__image {
+		margin: 0 auto;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.about-author-desc p {
+		font-size: 24px;
+	}
+}
+
+/* BURGER MENU */
+
+.burger-menu {
+	position: absolute;
+	top: 0;
+	right: 0; /* Off-screen by default */
+	width: 100%;
+	height: 100%;
+	background-color: #333; /* Adjust background color as needed */
+	box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3); /* Add shadow if desired */
+	transition: right 0.3s ease-in-out; /* Smooth transition */
+	z-index: 998; /* Ensure it's above other content */
+}
+
+/* Burger Menu Content Styles */
+.burger-menu-content {
+	padding: 50px 20px;
+	text-align: center;
+}
+
+/* MODAL */
+/* Modal container */
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Modal content */
+.modal-content {
+	position: relative;
+	background-color: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
+	max-width: 80%; /* Adjust the maximum width as needed */
+	max-height: 80%; /* Adjust the maximum height as needed */
+	overflow-y: auto; /* Enable vertical scrolling if content overflows */
+}
+
+/* Close button */
+.modal-content button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background-color: #fff;
+	color: #333;
+	border: none;
+	cursor: pointer;
+}
+
+.modal-content .tag-message {
+	padding: 5px;
+	font-size: 20px;
+}
