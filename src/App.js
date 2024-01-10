@@ -105,7 +105,7 @@ function SymbolModal({ onClose, content }) {
 }
 
 //MainContent
-function MainContent({ selectedBook, books, onShowModal, onSymbolClick }) {
+function MainContent({ selectedBook, books, onSymbolClick }) {
   const handleDownload = (url, download) => {
     const anchor = document.createElement("a");
     anchor.href = url;
@@ -116,7 +116,7 @@ function MainContent({ selectedBook, books, onShowModal, onSymbolClick }) {
 
   return (
     <div className="content">
-      <h3 className="author">Михаил Наёгирняк</h3>
+      <h3 className="author">Михаил Нагирняк</h3>
       {books.map((book) => {
         const {
           id,
@@ -128,7 +128,6 @@ function MainContent({ selectedBook, books, onShowModal, onSymbolClick }) {
           download,
           bookTags,
         } = book;
-
         if (selectedBook === bookTitle) {
           return (
             <div key={id} className="book">
@@ -159,15 +158,16 @@ function MainContent({ selectedBook, books, onShowModal, onSymbolClick }) {
                           <p key={paragraphIndex}>
                             {hasSymbol
                               ? paragraph.split("💡").map((tag, index) => {
-                                  let symbolIndex = 0;
-                                  const associatedTag = bookTags[symbolIndex++];
+                                  const localTag = bookTags.find(
+                                    (el) => el.contentId === chapterIndex
+                                  );
                                   return (
                                     <Fragment key={index}>
                                       {index > 0 && (
                                         <span
                                           className="symbol"
                                           onClick={() =>
-                                            onSymbolClick(associatedTag)
+                                            onSymbolClick(localTag.text)
                                           }
                                         >
                                           💡
