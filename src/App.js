@@ -328,9 +328,7 @@ function AboutAuthor({ showAboutAuthor, onExitClick }) {
         </div>
       </div>
       <div className="about-author-back">
-        <button onClick={onExitClick}>
-          Назадlllllllllllllllllllllllllllllllllllll
-        </button>
+        <button onClick={onExitClick}>Назад</button>
       </div>
     </div>
   );
