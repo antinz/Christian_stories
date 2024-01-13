@@ -18,14 +18,22 @@ body {
 	background-color: var(--bg-color);
 }
 
+main {
+	min-width: 100%;
+	display: flex;
+	position: relative;
+	justify-content: stretch;
+}
+
 a {
 	text-decoration: none;
 }
 
 /* CONTAINER */
+
 .container {
 	position: relative;
-	max-width: 1200px;
+	max-width: 1300px;
 	margin: 20px auto 0;
 	padding: 20px 20px 150px;
 }
@@ -58,6 +66,7 @@ a {
 	margin-bottom: 20px;
 	font-size: 20px;
 	font-style: italic;
+	text-align: justify;
 }
 
 .book-content h2 {
@@ -246,6 +255,10 @@ a {
 }
 
 .backToTop.visible {
+	opacity: 0.2;
+	transition: all 0.3s ease 0s;
+}
+.backToTop.visible:hover {
 	opacity: 1;
 }
 
@@ -264,6 +277,7 @@ a {
 
 .about-author__center {
 	display: flex;
+	justify-content: center;
 	align-items: center;
 	flex-direction: row;
 	text-align: center;
@@ -399,4 +413,111 @@ a {
 
 .tag {
 	display: inline;
+}
+
+.sidebar {
+	position: relative;
+	position: sticky;
+	left: 0;
+	top: 0;
+	width: 100%;
+	min-width: 350px;
+	height: 100vh;
+	flex: 0.6;
+	background-color: #4a4646;
+	border-right: 2px solid #4a4646;
+	opacity: 0.3;
+	display: block;
+	transition: all ease-in-out 0.5s;
+	z-index: 10;
+}
+
+.sidebar:hover {
+	opacity: 1;
+}
+.sidebar h2 {
+	text-align: center;
+	padding: 15px 0 0;
+	font-size: 30px;
+	color: var(--bg-color);
+}
+
+.sidebar h2:after {
+	content: "";
+	display: block;
+	border-bottom: 3px solid var(--bg-color);
+	margin-top: 15px;
+}
+
+.sidebar a {
+	text-decoration: none;
+	color: #fff;
+	font-size: 22px;
+	font-weight: 600;
+	text-align: center;
+	display: block;
+	padding: 15px 5px;
+	transition:
+		background-color 0.3s,
+		color 0.3s;
+}
+
+.sidebar li {
+	list-style: none;
+}
+.sidebar li:after {
+	content: "";
+	display: block;
+	top: 0;
+	left: 0;
+	border-bottom: 1px solid var(--bg-color);
+}
+
+.sidebar a:hover {
+	background-color: var(--bg-color);
+	color: var(--black-color);
+}
+
+.sidebar-button {
+	display: block;
+	position: fixed;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	top: 300px;
+	left: 0px;
+	z-index: 5;
+	border: none;
+	background-color: rgb(76, 153, 149);
+	transform: translateX(-50%);
+	opacity: 1;
+	cursor: pointer;
+	transition: all ease-in-out 0.5s;
+}
+
+.sidebar-button:hover {
+	background-color: rgb(215, 226, 225);
+}
+
+.sidebar span {
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	font-size: 25px;
+	color: #fff;
+	cursor: pointer;
+}
+
+@media screen and (max-width: 720px) {
+	.sidebar-button {
+		top: 300px;
+	}
+}
+@media screen and (max-width: 450px) {
+	.sidebar-button {
+		top: 350px;
+	}
+	.sidebar {
+		width: 100vw;
+	}
 }

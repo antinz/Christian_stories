@@ -13,6 +13,11 @@ export default function App() {
   const [isBurgerMenu, setIsBurgerMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState([0]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const handleSidebar = () => {
+    setIsSidebarOpen((sidebar) => !sidebar);
+  };
 
   const handleModal = () => {
     setShowModal(true);
@@ -48,11 +53,11 @@ export default function App() {
 
   return (
     <Fragment>
-      {!showAboutAuthor && (
+      {
         <button className="nav-btn" onClick={handleBurgerMenu}>
           {isBurgerMenu ? <FaTimes /> : <FaBars />}
         </button>
-      )}
+      }
       <Header
         handleSelectChange={handleSelectChange}
         onAboutAuthorClick={handleAboutAuthorClick}
@@ -64,25 +69,39 @@ export default function App() {
           showAboutAuthor={showAboutAuthor}
         />
       )}
-      <ContainerWrapper>
-        {showAboutAuthor && (
-          <AboutAuthor
-            showAboutAuthor={showAboutAuthor}
-            onExitClick={handleExitClick}
-          />
+      <main>
+        {!showAboutAuthor && !isSidebarOpen && (
+          <SidebarBtn onSidebar={handleSidebar} />
         )}
-        {!showAboutAuthor && (
-          <MainContent
-            selectedBook={selectedBook}
+        {!showAboutAuthor && isSidebarOpen && (
+          <Sidebar
             books={books}
-            onShowModal={handleModal}
-            onSymbolClick={handleSymbolClick}
+            selectedBook={selectedBook}
+            onSidebar={handleSidebar}
           />
         )}
-        {showModal && (
-          <SymbolModal onClose={handleCloseModal} content={modalContent} />
-        )}
-      </ContainerWrapper>
+
+        <ContainerWrapper onSidebar={handleSidebar}>
+          {showAboutAuthor && (
+            <AboutAuthor
+              showAboutAuthor={showAboutAuthor}
+              onExitClick={handleExitClick}
+            />
+          )}
+          {!showAboutAuthor && (
+            <MainContent
+              selectedBook={selectedBook}
+              books={books}
+              onShowModal={handleModal}
+              onSymbolClick={handleSymbolClick}
+            />
+          )}
+          {showModal && (
+            <SymbolModal onClose={handleCloseModal} content={modalContent} />
+          )}
+        </ContainerWrapper>
+      </main>
+
       <BackToTopButton />
     </Fragment>
   );
@@ -104,7 +123,7 @@ function SymbolModal({ onClose, content }) {
   );
 }
 
-//MainContent
+// MainContent
 function MainContent({ selectedBook, books, onSymbolClick }) {
   const handleDownload = (url, download) => {
     const anchor = document.createElement("a");
@@ -145,9 +164,14 @@ function MainContent({ selectedBook, books, onSymbolClick }) {
                 </p>
               ))}
               {content.map((chapter, chapterIndex) => {
-                const { title, text } = chapter;
+                const { title, text, chapterId } = chapter;
+
                 return (
-                  <div className="book-content" key={chapterIndex}>
+                  <div
+                    className="book-content"
+                    key={chapterIndex}
+                    id={chapterId}
+                  >
                     <h2>{title}</h2>
                     {Array.isArray(text) ? (
                       text.map((paragraph, paragraphIndex) => {
@@ -198,9 +222,15 @@ function MainContent({ selectedBook, books, onSymbolClick }) {
   );
 }
 
+//CustomTag component
+
 // ContainerWrapper
-function ContainerWrapper({ children }) {
-  return <div className="container">{children}</div>;
+function ContainerWrapper({ children, onSidebar }) {
+  return (
+    <div className="container" onClick={() => onSidebar(false)}>
+      {children}
+    </div>
+  );
 }
 
 //Header
@@ -315,10 +345,10 @@ function AboutAuthor({ showAboutAuthor, onExitClick }) {
         </div>
         <div className="about-author-desc">
           {aboutAuthor.map((about) => {
-            const { title, content } = about;
+            const { title, content, chapterId } = about;
             return (
               <>
-                <h1>{title}</h1>
+                <h1 id={chapterId}>{title}</h1>
                 {content.map((paragraph, index) => {
                   return <p key={index}>{paragraph}</p>;
                 })}
@@ -332,4 +362,40 @@ function AboutAuthor({ showAboutAuthor, onExitClick }) {
       </div>
     </div>
   );
+}
+
+function Sidebar({ books, selectedBook, onSidebar }) {
+  const selectedBookObj = books.find((book) => book.bookTitle === selectedBook);
+
+  if (!selectedBookObj) {
+    return null; // Handle the case where the selected book is not found
+  }
+
+  const { content } = selectedBookObj;
+
+  return (
+    <div className="sidebar">
+      <h2>Главы</h2>
+      <span onClick={() => onSidebar(false)}>
+        <FaTimes />
+      </span>
+      <ul>
+        {content.map((chapterTitle, index) => {
+          const { title, chapterId } = chapterTitle;
+          const anchorLink = `#${chapterId}`;
+          return (
+            <li key={index}>
+              <a href={anchorLink} onClick={() => onSidebar(false)}>
+                {title}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
+function SidebarBtn({ onSidebar }) {
+  return <button className="sidebar-button" onClick={onSidebar}></button>;
 }
