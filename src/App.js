@@ -66,44 +66,45 @@ export default function App() {
         onAboutAuthorClick={handleAboutAuthorClick}
         showAboutAuthor={showAboutAuthor}
       />
-      {isBurgerMenu && (
+      {isBurgerMenu ? (
         <BurgerMenu
           onAboutAuthorClick={handleAboutAuthorClick}
           showAboutAuthor={showAboutAuthor}
         />
-      )}
-      <main>
-        {!showAboutAuthor && !isSidebarOpen && (
-          <SidebarBtn onSidebar={handleOpenSidebar} />
-        )}
-        {!showAboutAuthor && isSidebarOpen && !showModal && (
-          <Sidebar
-            books={books}
-            selectedBook={selectedBook}
-            onCloseSidebar={handleCloseSidebar}
-          />
-        )}
-
-        <ContainerWrapper onCloseSidebar={handleCloseSidebar}>
-          {showAboutAuthor && (
-            <AboutAuthor
-              showAboutAuthor={showAboutAuthor}
-              onExitClick={handleExitClick}
-            />
+      ) : (
+        <main>
+          {!showAboutAuthor && !isSidebarOpen && (
+            <SidebarBtn onSidebar={handleOpenSidebar} />
           )}
-          {!showAboutAuthor && (
-            <MainContent
-              selectedBook={selectedBook}
+          {isSidebarOpen && !showModal && (
+            <Sidebar
               books={books}
-              onShowModal={handleModal}
-              onSymbolClick={handleSymbolClick}
+              selectedBook={selectedBook}
+              onCloseSidebar={handleCloseSidebar}
             />
           )}
-          {showModal && (
-            <SymbolModal onClose={handleCloseModal} content={modalContent} />
-          )}
-        </ContainerWrapper>
-      </main>
+
+          <ContainerWrapper onCloseSidebar={handleCloseSidebar}>
+            {showAboutAuthor && (
+              <AboutAuthor
+                showAboutAuthor={showAboutAuthor}
+                onExitClick={handleExitClick}
+              />
+            )}
+            {!showAboutAuthor && (
+              <MainContent
+                selectedBook={selectedBook}
+                books={books}
+                onShowModal={handleModal}
+                onSymbolClick={handleSymbolClick}
+              />
+            )}
+            {showModal && (
+              <SymbolModal onClose={handleCloseModal} content={modalContent} />
+            )}
+          </ContainerWrapper>
+        </main>
+      )}
 
       <BackToTopButton />
     </Fragment>
