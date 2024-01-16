@@ -15,8 +15,11 @@ export default function App() {
   const [modalContent, setModalContent] = useState([0]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const handleSidebar = () => {
-    setIsSidebarOpen((sidebar) => !sidebar);
+  const handleOpenSidebar = () => {
+    setIsSidebarOpen(true);
+  };
+  const handleCloseSidebar = () => {
+    setIsSidebarOpen(false);
   };
 
   const handleModal = () => {
@@ -71,17 +74,17 @@ export default function App() {
       )}
       <main>
         {!showAboutAuthor && !isSidebarOpen && (
-          <SidebarBtn onSidebar={handleSidebar} />
+          <SidebarBtn onSidebar={handleOpenSidebar} />
         )}
-        {!showAboutAuthor && isSidebarOpen && (
+        {!showAboutAuthor && isSidebarOpen && !showModal && (
           <Sidebar
             books={books}
             selectedBook={selectedBook}
-            onSidebar={handleSidebar}
+            onCloseSidebar={handleCloseSidebar}
           />
         )}
 
-        <ContainerWrapper onSidebar={handleSidebar}>
+        <ContainerWrapper onCloseSidebar={handleCloseSidebar}>
           {showAboutAuthor && (
             <AboutAuthor
               showAboutAuthor={showAboutAuthor}
@@ -225,9 +228,9 @@ function MainContent({ selectedBook, books, onSymbolClick }) {
 //CustomTag component
 
 // ContainerWrapper
-function ContainerWrapper({ children, onSidebar }) {
+function ContainerWrapper({ children, onCloseSidebar }) {
   return (
-    <div className="container" onClick={() => onSidebar(false)}>
+    <div className="container" onClick={() => onCloseSidebar(false)}>
       {children}
     </div>
   );
@@ -364,7 +367,7 @@ function AboutAuthor({ showAboutAuthor, onExitClick }) {
   );
 }
 
-function Sidebar({ books, selectedBook, onSidebar }) {
+function Sidebar({ books, selectedBook, onCloseSidebar }) {
   const selectedBookObj = books.find((book) => book.bookTitle === selectedBook);
 
   if (!selectedBookObj) {
@@ -376,16 +379,16 @@ function Sidebar({ books, selectedBook, onSidebar }) {
   return (
     <div className="sidebar">
       <h2>Главы</h2>
-      <span onClick={() => onSidebar(false)}>
+      <button onClick={() => onCloseSidebar(false)}>
         <FaTimes />
-      </span>
+      </button>
       <ul>
         {content.map((chapterTitle, index) => {
           const { title, chapterId } = chapterTitle;
           const anchorLink = `#${chapterId}`;
           return (
             <li key={index}>
-              <a href={anchorLink} onClick={() => onSidebar(false)}>
+              <a href={anchorLink} onClick={() => onCloseSidebar(false)}>
                 {title}
               </a>
             </li>
