@@ -3,6 +3,7 @@ import { books } from "./articles";
 import { aboutAuthor } from "./articles";
 import { FaBars } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
+import { FaAngleRight } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import authorImage from "./assets/author.jpg";
@@ -231,7 +232,11 @@ function MainContent({ selectedBook, books, onSymbolClick }) {
 // ContainerWrapper
 function ContainerWrapper({ children, onCloseSidebar }) {
   return (
-    <div className="container" onClick={() => onCloseSidebar(false)}>
+    <div
+      className="container"
+      onClick={() => onCloseSidebar(false)}
+      onMouseEnter={() => onCloseSidebar(false)}
+    >
       {children}
     </div>
   );
@@ -345,7 +350,7 @@ function AboutAuthor({ showAboutAuthor, onExitClick }) {
     <div className="about-author">
       <div className="about-author__center">
         <div className="about-author__image">
-          <img src={authorImage} alt="Author" />
+          <img src={authorImage} alt="Author" loading="lazy" />
         </div>
         <div className="about-author-desc">
           {aboutAuthor.map((about) => {
@@ -400,6 +405,15 @@ function Sidebar({ books, selectedBook, onCloseSidebar }) {
   );
 }
 
-function SidebarBtn({ onSidebar }) {
-  return <button className="sidebar-button" onClick={onSidebar}></button>;
+function SidebarBtn({ onSidebar, onCloseSidebar }) {
+  return (
+    <button
+      className="sidebar-button"
+      onClick={onSidebar}
+      onMouseOver={onSidebar}
+      onMouseleave={onCloseSidebar}
+    >
+      <FaAngleRight className="icon-angle" />
+    </button>
+  );
 }
