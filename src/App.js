@@ -40,7 +40,11 @@ export default function App() {
   };
 
   const handleSelectChange = (event) => {
-    setSelectedBook(event.target.value);
+    const selectedBookValue = event.target.value;
+    setSelectedBook(() => {
+      localStorage.setItem("selectedBook", selectedBookValue);
+      return selectedBookValue;
+    });
   };
 
   const handleExitClick = () => {
@@ -52,7 +56,8 @@ export default function App() {
   };
 
   useEffect(() => {
-    setSelectedBook(books[0]?.bookTitle || "");
+    const storedBook = localStorage.getItem("selectedBook");
+    setSelectedBook(storedBook || books[0]?.bookTitle || "");
   }, []);
 
   return (
@@ -287,14 +292,22 @@ function AboutAuthorButton({ onAboutAuthorClick }) {
 
 //SelectorForm
 
-function SelectorForm({ handleSelectChange }) {
+function SelectorForm({ handleSelectChange, selectedBook }) {
   return (
     <form className="form-center">
       <label htmlFor="book-selector">Выберите книгу</label>
-      <select id="book-selector" onChange={handleSelectChange}>
+      <select
+        id="book-selector"
+        onChange={handleSelectChange}
+        value={selectedBook}
+      >
         {books.map((book) => {
           const { id, bookTitle } = book;
-          return <option key={id}>{bookTitle}</option>;
+          return (
+            <option key={id} value={bookTitle}>
+              {bookTitle}
+            </option>
+          );
         })}
       </select>
     </form>
