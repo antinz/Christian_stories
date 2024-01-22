@@ -9,12 +9,36 @@ import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import authorImage from "./assets/author.jpg";
 
 export default function App() {
-  const [selectedBook, setSelectedBook] = useState("");
+  const [selectedBook, setSelectedBook] = useState(() => {
+    const storedBook = localStorage.getItem("lastOpenedBook");
+    return storedBook ? JSON.parse(storedBook) : books[0];
+  });
+
   const [showAboutAuthor, setShowAboutAuthor] = useState(false);
   const [isBurgerMenu, setIsBurgerMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState([0]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const handleCategoryClick = (category) => {
+    setSelectedCategory((prevCategory) =>
+      prevCategory === category ? null : category
+    );
+  };
+
+  const handleBurgerMenu = () => {
+    setIsBurgerMenu((prevIsBurgerMenu) => !prevIsBurgerMenu);
+  };
+
+  const handleCloseBurgerMenu = () => {
+    setIsBurgerMenu(false);
+  };
+
+  const handleSelectBook = (book) => {
+    setSelectedBook(book);
+    localStorage.setItem("lastOpenedBook", JSON.stringify(book));
+  };
 
   const handleOpenSidebar = () => {
     setIsSidebarOpen(true);
@@ -39,82 +63,195 @@ export default function App() {
     setIsBurgerMenu(false);
   };
 
-  const handleSelectChange = (event) => {
-    const selectedBookValue = event.target.value;
-    setSelectedBook(() => {
-      localStorage.setItem("selectedBook", selectedBookValue);
-      return selectedBookValue;
-    });
-  };
-
   const handleExitClick = () => {
     setShowAboutAuthor(false);
   };
 
-  const handleBurgerMenu = () => {
-    setIsBurgerMenu((isBurgerMenu) => !isBurgerMenu);
-  };
-
-  useEffect(() => {
-    const storedBook = localStorage.getItem("selectedBook");
-    setSelectedBook(storedBook || books[0]?.bookTitle || "");
-  }, []);
-
   return (
     <Fragment>
-      {
-        <button className="nav-btn" onClick={handleBurgerMenu}>
-          {isBurgerMenu ? <FaTimes /> : <FaBars />}
-        </button>
-      }
       <Header
-        handleSelectChange={handleSelectChange}
         onAboutAuthorClick={handleAboutAuthorClick}
         showAboutAuthor={showAboutAuthor}
-      />
-      {isBurgerMenu ? (
-        <BurgerMenu
-          onAboutAuthorClick={handleAboutAuthorClick}
-          showAboutAuthor={showAboutAuthor}
-        />
-      ) : (
-        <main>
-          {!showAboutAuthor && !isSidebarOpen && (
-            <SidebarBtn onSidebar={handleOpenSidebar} />
-          )}
-          {isSidebarOpen && !showModal && (
-            <Sidebar
+      >
+        {!showAboutAuthor && (
+          <button className="nav-btn" onClick={handleBurgerMenu}>
+            <FaBars />
+          </button>
+        )}
+        {isBurgerMenu && (
+          <BurgerMenu
+            showAboutAuthor={showAboutAuthor}
+            books={books}
+            onCloseBurgerMenu={handleCloseBurgerMenu}
+          >
+            <BookCategoryList
               books={books}
+              selectedCategory={selectedCategory}
+              onCategoryClick={handleCategoryClick}
+              onSelectBook={handleSelectBook}
               selectedBook={selectedBook}
-              onCloseSidebar={handleCloseSidebar}
+              onCloseBurgerMenu={handleCloseBurgerMenu}
+            />
+            <AboutAuthorButton
+              showAboutAuthor={showAboutAuthor}
+              onAboutAuthorClick={handleAboutAuthorClick}
+            />
+          </BurgerMenu>
+        )}
+      </Header>
+      <Main>
+        {isSidebarOpen && (
+          <Sidebar
+            books={books}
+            selectedBook={selectedBook}
+            onCloseSidebar={handleCloseSidebar}
+          />
+        )}
+        {!showAboutAuthor && !isSidebarOpen && (
+          <SidebarBtn onSidebar={handleOpenSidebar} />
+        )}
+        <ContainerWrapper
+          onCloseSidebar={handleCloseSidebar}
+          onCloseBurgerMenu={handleCloseBurgerMenu}
+        >
+          {showAboutAuthor ? (
+            <AboutAuthor
+              showAboutAuthor={showAboutAuthor}
+              onExitClick={handleExitClick}
+            />
+          ) : (
+            <MainContent
+              selectedBook={selectedBook}
+              books={books}
+              onShowModal={handleModal}
+              onSymbolClick={handleSymbolClick}
             />
           )}
-
-          <ContainerWrapper onCloseSidebar={handleCloseSidebar}>
-            {showAboutAuthor && (
-              <AboutAuthor
-                showAboutAuthor={showAboutAuthor}
-                onExitClick={handleExitClick}
-              />
-            )}
-            {!showAboutAuthor && (
-              <MainContent
-                selectedBook={selectedBook}
-                books={books}
-                onShowModal={handleModal}
-                onSymbolClick={handleSymbolClick}
-              />
-            )}
-            {showModal && (
-              <SymbolModal onClose={handleCloseModal} content={modalContent} />
-            )}
-          </ContainerWrapper>
-        </main>
-      )}
-
-      <BackToTopButton />
+          {showModal && (
+            <SymbolModal onClose={handleCloseModal} content={modalContent} />
+          )}
+          <BackToTopButton />
+        </ContainerWrapper>
+      </Main>
     </Fragment>
   );
+}
+
+//Header
+function Header({ children }) {
+  return (
+    <header className="header">
+      <h1>Книги Михаила Нагирняка</h1>
+      {children}
+    </header>
+  );
+}
+
+function BurgerMenu({ children, onCloseBurgerMenu }) {
+  return (
+    <div className="burger-menu">
+      <button className="nav-btn-close" onClick={onCloseBurgerMenu}>
+        <FaTimes />
+      </button>
+      <div className="burger-menu-content">
+        <h2>Меню</h2>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+//Sidebar
+function Sidebar({ selectedBook, onCloseSidebar }) {
+  const bookChapters = selectedBook;
+  const { content } = bookChapters;
+  return (
+    <div className="sidebar">
+      <h2>Главы</h2>
+      <button onClick={() => onCloseSidebar(false)}>
+        <FaTimes />
+      </button>
+      <ul>
+        {content.map((chapterTitle, index) => {
+          const { title, chapterId } = chapterTitle;
+          const anchorLink = `#${chapterId}`;
+          return (
+            <li key={index}>
+              <a href={anchorLink} onClick={() => onCloseSidebar(false)}>
+                {title}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
+// Inside BookCategoryList component
+function BookCategoryList({
+  books,
+  selectedCategory,
+  onCategoryClick,
+  onSelectBook,
+  selectedBook,
+  onCloseBurgerMenu,
+}) {
+  const categories = [...new Set(books.map((book) => book.category))];
+
+  return (
+    <div className="category-box">
+      <ul className="category-list">
+        {categories.map((category) => (
+          <li
+            key={category}
+            onClick={() => onCategoryClick(category)}
+            className="outer-li"
+          >
+            <span
+              className={
+                selectedCategory === category
+                  ? "category-list-item selected-category"
+                  : "category-list-item"
+              }
+            >
+              {category}
+            </span>
+            {selectedCategory === category && (
+              <ul className="book-list">
+                {books
+                  .filter((book) => book.category === selectedCategory)
+                  .map((book) => (
+                    <li
+                      key={book.id}
+                      onClick={() => {
+                        onSelectBook(book);
+                        onCloseBurgerMenu();
+                      }}
+                      className="inner-li"
+                    >
+                      <span
+                        className={
+                          selectedBook && selectedBook.id === book.id
+                            ? "book-list-item selected-book"
+                            : "book-list-item"
+                        }
+                      >
+                        {book.bookTitle}
+                      </span>
+                    </li>
+                  ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function Main({ children }) {
+  return <main>{children}</main>;
 }
 
 // ModalScreen
@@ -157,7 +294,7 @@ function MainContent({ selectedBook, books, onSymbolClick }) {
           download,
           bookTags,
         } = book;
-        if (selectedBook === bookTitle) {
+        if (selectedBook && selectedBook.id === id) {
           return (
             <div key={id} className="book">
               <button
@@ -235,47 +372,16 @@ function MainContent({ selectedBook, books, onSymbolClick }) {
 //CustomTag component
 
 // ContainerWrapper
-function ContainerWrapper({ children, onCloseSidebar }) {
+function ContainerWrapper({ children, onCloseSidebar, onCloseBurgerMenu }) {
   return (
     <div
       className="container"
-      onClick={() => onCloseSidebar(false)}
-      onMouseEnter={() => onCloseSidebar(false)}
+      onClick={() => {
+        onCloseSidebar();
+        onCloseBurgerMenu();
+      }}
     >
       {children}
-    </div>
-  );
-}
-
-//Header
-function Header({ handleSelectChange, onAboutAuthorClick, showAboutAuthor }) {
-  return (
-    <header className="header">
-      <h1>Христианские рассказы</h1>
-      {!showAboutAuthor && (
-        <SelectorForm handleSelectChange={handleSelectChange} />
-      )}
-      <nav className="header-menu">
-        <div className="header-btn">
-          {!showAboutAuthor && (
-            <AboutAuthorButton onAboutAuthorClick={onAboutAuthorClick} />
-          )}
-        </div>
-      </nav>
-    </header>
-  );
-}
-
-function BurgerMenu({ onAboutAuthorClick, showAboutAuthor, onExitClick }) {
-  return (
-    <div className="burger-menu">
-      <div className="burger-menu-content">
-        <AboutAuthorButton
-          showAboutAuthor={showAboutAuthor}
-          onExitClick={onExitClick}
-          onAboutAuthorClick={onAboutAuthorClick}
-        />
-      </div>
     </div>
   );
 }
@@ -284,33 +390,9 @@ function BurgerMenu({ onAboutAuthorClick, showAboutAuthor, onExitClick }) {
 
 function AboutAuthorButton({ onAboutAuthorClick }) {
   return (
-    <button onClick={onAboutAuthorClick} className="about-author-btn">
+    <div onClick={onAboutAuthorClick} className="about-author-btn">
       Об авторе
-    </button>
-  );
-}
-
-//SelectorForm
-
-function SelectorForm({ handleSelectChange, selectedBook }) {
-  return (
-    <form className="form-center">
-      <label htmlFor="book-selector">Выберите книгу</label>
-      <select
-        id="book-selector"
-        onChange={handleSelectChange}
-        value={selectedBook}
-      >
-        {books.map((book) => {
-          const { id, bookTitle } = book;
-          return (
-            <option key={id} value={bookTitle}>
-              {bookTitle}
-            </option>
-          );
-        })}
-      </select>
-    </form>
+    </div>
   );
 }
 
@@ -386,46 +468,9 @@ function AboutAuthor({ showAboutAuthor, onExitClick }) {
   );
 }
 
-function Sidebar({ books, selectedBook, onCloseSidebar }) {
-  const selectedBookObj = books.find((book) => book.bookTitle === selectedBook);
-
-  if (!selectedBookObj) {
-    return null; // Handle the case where the selected book is not found
-  }
-
-  const { content } = selectedBookObj;
-
+function SidebarBtn({ onSidebar }) {
   return (
-    <div className="sidebar">
-      <h2>Главы</h2>
-      <button onClick={() => onCloseSidebar(false)}>
-        <FaTimes />
-      </button>
-      <ul>
-        {content.map((chapterTitle, index) => {
-          const { title, chapterId } = chapterTitle;
-          const anchorLink = `#${chapterId}`;
-          return (
-            <li key={index}>
-              <a href={anchorLink} onClick={() => onCloseSidebar(false)}>
-                {title}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
-}
-
-function SidebarBtn({ onSidebar, onCloseSidebar }) {
-  return (
-    <button
-      className="sidebar-button"
-      onClick={onSidebar}
-      onMouseOver={onSidebar}
-      onMouseleave={onCloseSidebar}
-    >
+    <button className="sidebar-button" onClick={onSidebar}>
       <FaAngleRight className="icon-angle" />
     </button>
   );

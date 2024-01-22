@@ -29,6 +29,10 @@ a {
 	text-decoration: none;
 }
 
+li {
+	list-style-type: none;
+}
+
 /* CONTAINER */
 
 .container {
@@ -117,21 +121,16 @@ a {
 
 /* ABOUT AUTHOR BUTTON */
 .about-author-btn {
-	outline: none;
-	border: none;
 	font-size: 25px;
-	color: var(--black-color);
-	background-color: var(--bg-color);
+	color: #fff;
 	cursor: pointer;
-	padding: 15px;
-	border-radius: 15px;
 	transition: all 0.6s ease;
-	margin-top: 35px;
+	padding: 15px 0;
+}
+.about-author-btn:hover {
+	background-color: var(--bg-color);
 }
 
-.about-author-btn:hover {
-	background-color: #1edaab;
-}
 /* ABOUT AUTHOR BUTTON */
 
 /* HEADER */
@@ -140,11 +139,12 @@ a {
 	color: #fff;
 	padding: 2rem;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 	max-width: 100%;
 	flex-wrap: wrap;
 	text-align: center;
+	position: relative;
 }
 
 .header-menu {
@@ -160,17 +160,30 @@ a {
 
 .nav-btn {
 	position: absolute;
-	left: 15px;
-	top: 15px;
-	padding: 5px;
+	left: 25px;
+	top: 25px;
+	margin-top: 15px;
 	cursor: pointer;
 	background-color: transparent;
 	border: none;
 	outline: none;
 	color: #fff;
-	font-size: 20px;
-	display: none;
-	z-index: 999;
+	font-size: 35px;
+	display: block;
+}
+
+.nav-btn-close {
+	position: absolute;
+	left: 25px;
+	top: 7px;
+	margin-top: 15px;
+	cursor: pointer;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	color: #fff;
+	font-size: 35px;
+	display: block;
 }
 @media (max-width: 1000px) {
 	.header {
@@ -184,10 +197,6 @@ a {
 		font-size: 30px;
 		margin-left: 40px;
 	}
-
-	.nav-btn {
-		display: block;
-	}
 }
 
 @media (max-width: 800px) {
@@ -198,7 +207,14 @@ a {
 		max-width: 70%;
 		margin: 0 auto;
 	}
+	.nav-btn {
+		font-size: 25px;
+	}
+	.nav-btn-close {
+		font-size: 25px;
+	}
 }
+
 /* HEADER */
 
 /* FORM */
@@ -369,19 +385,57 @@ a {
 .burger-menu {
 	position: fixed;
 	top: 0;
-	right: 0;
-	width: 100%;
+	left: 0;
+	width: 30%;
 	min-height: 100vh;
-	background-color: #333;
+	background-color: #4a4646;
 	box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
 	transition: right 0.3s ease-in-out;
 	z-index: 998;
+	border-right: 2px solid var(--black-color);
 }
-
+.burger-menu button {
+	margin-top: 35px;
+}
 /* Burger Menu Content Styles */
 .burger-menu-content {
-	padding: 50px 20px;
+	min-width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 30px 0px;
 	text-align: center;
+}
+.burger-menu-content h2 {
+	font-size: 35px;
+	color: var(--bg-color);
+}
+
+.burger-menu-content h2:after {
+	content: "";
+	display: block;
+	border-bottom: 6px solid var(--bg-color);
+	margin-top: 42px;
+}
+
+@media (max-width: 1300px) {
+	.burger-menu {
+		width: 35%;
+	}
+}
+@media (max-width: 1000px) {
+	.burger-menu {
+		width: 45%;
+	}
+}
+@media (max-width: 900px) {
+	.burger-menu {
+		width: 100%;
+	}
+	.burger-menu-content h2 {
+		font-size: 30px;
+		color: var(--bg-color);
+	}
 }
 
 /* MODAL */
@@ -489,8 +543,6 @@ a {
 .sidebar li:after {
 	content: "";
 	display: block;
-	top: 0;
-	left: 0;
 	border-bottom: 1px solid var(--bg-color);
 }
 
@@ -551,4 +603,76 @@ a {
 	.sidebar {
 		width: 100vw;
 	}
+}
+
+/* Categories */
+
+.category-box {
+	width: 100%;
+	text-align: start;
+	margin-bottom: 300px;
+}
+.category-list {
+	border: none;
+	height: auto;
+}
+
+.category-list li {
+	cursor: pointer;
+	color: #fff;
+	font-size: 23px;
+	font-weight: 600;
+}
+.category-list-item {
+	display: block;
+	padding: 15px 5px 15px 20px;
+	font-size: 25px;
+	transition: all 0.6s ease;
+	text-align: start;
+	text-transform: uppercase;
+}
+
+.category-box .category-list .outer-li:after {
+	content: "";
+	display: block;
+	border-bottom: 5px solid var(--bg-color);
+}
+
+.category-list-item:hover {
+	background-color: var(--bg-color);
+}
+
+.category .category-list-item {
+	padding: 20px;
+	width: 100%;
+}
+.book-list-item {
+	display: block;
+	padding: 15px 5px 15px 70px;
+	font-size: 25px;
+	transition: all 0.6s ease;
+	text-align: start;
+}
+.category-box .category-list .inner-li {
+	font-weight: normal;
+}
+
+.category-box .category-list .inner-li:after {
+	content: "";
+	display: block;
+	border-bottom: 1px solid var(--bg-color);
+}
+
+.category-box .category-list .inner-li:hover {
+	background-color: rgb(76, 153, 149);
+}
+
+.selected-category {
+	background-color: var(--bg-color);
+	color: #000;
+}
+.selected-book {
+	background-color: #fff;
+	color: #000;
+	font-weight: 600;
 }
