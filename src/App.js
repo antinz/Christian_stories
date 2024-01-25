@@ -6,6 +6,11 @@ import { FaTimes } from "react-icons/fa";
 import { FaAngleRight } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { FaAngleDown } from "react-icons/fa";
+import { FaAngleUp } from "react-icons/fa";
+import { FaSun } from "react-icons/fa";
+import { FaMoon } from "react-icons/fa";
+
 import authorImage from "./assets/author.jpg";
 
 export default function App() {
@@ -20,6 +25,9 @@ export default function App() {
   const [modalContent, setModalContent] = useState([0]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(
+    localStorage.getItem("darkMode") === "true"
+  );
 
   const handleCategoryClick = (category) => {
     setSelectedCategory((prevCategory) =>
@@ -66,18 +74,39 @@ export default function App() {
   const handleExitClick = () => {
     setShowAboutAuthor(false);
   };
+  const handleToggleDarkMode = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    localStorage.setItem("darkMode", newMode);
+  };
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.classList.add("modal-open");
+    } else {
+      document.body.classList.remove("modal-open");
+    }
+  }, [showModal]);
 
   return (
     <Fragment>
       <Header
         onAboutAuthorClick={handleAboutAuthorClick}
         showAboutAuthor={showAboutAuthor}
+        isDarkMode={isDarkMode}
       >
         {!showAboutAuthor && (
-          <button className="nav-btn" onClick={handleBurgerMenu}>
+          <button
+            className="nav-btn"
+            onClick={handleBurgerMenu}
+            style={isDarkMode ? { color: "#333" } : {}}
+          >
             <FaBars />
           </button>
         )}
+        <button className="mode-toggle-btn" onClick={handleToggleDarkMode}>
+          {isDarkMode ? <FaSun style={{ color: "#333" }} /> : <FaMoon />}
+        </button>
         {isBurgerMenu && (
           <BurgerMenu
             showAboutAuthor={showAboutAuthor}
@@ -99,7 +128,7 @@ export default function App() {
           </BurgerMenu>
         )}
       </Header>
-      <Main>
+      <Main isDarkMode={isDarkMode}>
         {isSidebarOpen && (
           <Sidebar
             books={books}
@@ -118,6 +147,7 @@ export default function App() {
             <AboutAuthor
               showAboutAuthor={showAboutAuthor}
               onExitClick={handleExitClick}
+				  isDarkMode={isDarkMode}
             />
           ) : (
             <MainContent
@@ -125,12 +155,13 @@ export default function App() {
               books={books}
               onShowModal={handleModal}
               onSymbolClick={handleSymbolClick}
+				  isDarkMode={isDarkMode}
             />
           )}
           {showModal && (
             <SymbolModal onClose={handleCloseModal} content={modalContent} />
           )}
-          <BackToTopButton />
+          <BackToTopButton isDarkMode={isDarkMode}/>
         </ContainerWrapper>
       </Main>
     </Fragment>
@@ -138,9 +169,13 @@ export default function App() {
 }
 
 //Header
-function Header({ children }) {
+function Header({ children, isDarkMode }) {
+  const headerStyles = {
+    backgroundColor: isDarkMode ? "#a0e2d2" : "#333",
+    color: isDarkMode ? "#333" : "#fff",
+  };
   return (
-    <header className="header">
+    <header className="header" style={headerStyles}>
       <h1>Книги Михаила Нагирняка</h1>
       {children}
     </header>
@@ -188,6 +223,14 @@ function Sidebar({ selectedBook, onCloseSidebar }) {
   );
 }
 
+function SidebarBtn({ onSidebar }) {
+  return (
+    <button className="sidebar-button" onClick={onSidebar}>
+      <FaAngleRight className="icon-angle" />
+    </button>
+  );
+}
+
 // Inside BookCategoryList component
 function BookCategoryList({
   books,
@@ -216,7 +259,15 @@ function BookCategoryList({
               }
             >
               {category}
+              <span className="angle-icon">
+                {selectedCategory === category ? (
+                  <FaAngleUp />
+                ) : (
+                  <FaAngleDown />
+                )}
+              </span>
             </span>
+
             {selectedCategory === category && (
               <ul className="book-list">
                 {books
@@ -250,15 +301,27 @@ function BookCategoryList({
   );
 }
 
-function Main({ children }) {
-  return <main>{children}</main>;
+function Main({ children, isDarkMode }) {
+  const mainStyles = {
+    backgroundColor: isDarkMode ? "#333" : "#a0e2d2",
+    color: isDarkMode ? "#fff" : "#333",
+  };
+  return <main style={mainStyles}>{children}</main>;
 }
 
 // ModalScreen
-function SymbolModal({ onClose, content }) {
+function SymbolModal({ onClose, content, isDarkMode }) {
+  const modalStyles = {
+    backgroundColor: isDarkMode ? "#333" : "#fff",
+    color: isDarkMode ? "#333" : "#333",
+  };
   return (
     <div className="modal" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="modal-content"
+        onClick={(e) => e.stopPropagation()}
+        style={modalStyles}
+      >
         <button onClick={onClose}>
           <FaTimes />
         </button>
@@ -271,7 +334,7 @@ function SymbolModal({ onClose, content }) {
 }
 
 // MainContent
-function MainContent({ selectedBook, books, onSymbolClick }) {
+function MainContent({ selectedBook, books, onSymbolClick, isDarkMode }) {
   const handleDownload = (url, download) => {
     const anchor = document.createElement("a");
     anchor.href = url;
@@ -297,12 +360,6 @@ function MainContent({ selectedBook, books, onSymbolClick }) {
         if (selectedBook && selectedBook.id === id) {
           return (
             <div key={id} className="book">
-              <button
-                className="download"
-                onClick={() => handleDownload(url, download)}
-              >
-                PDF
-              </button>
               <h1>{bookTitle}</h1>
               <h4>{bookSubtitle}</h4>
               {description.map((desc, index) => (
@@ -310,6 +367,7 @@ function MainContent({ selectedBook, books, onSymbolClick }) {
                   {desc}
                 </p>
               ))}
+				  <DownloadPDFBtn isDarkMode={isDarkMode} onDownload={handleDownload} url={url} download={download}/>
               {content.map((chapter, chapterIndex) => {
                 const { title, text, chapterId } = chapter;
 
@@ -369,7 +427,23 @@ function MainContent({ selectedBook, books, onSymbolClick }) {
   );
 }
 
-//CustomTag component
+//  Download PDF button
+function DownloadPDFBtn({isDarkMode, onDownload, url, download}) {
+	const downloadBtnStyles = {
+		backgroundColor: isDarkMode ? "#a0e2d2" : "#333",
+		color: isDarkMode ? "#333" : "#fff"
+	}
+
+  return (
+    <button
+      className="download"
+		style={downloadBtnStyles}
+      onClick={() => onDownload(url, download)}
+    >
+      PDF
+    </button>
+  );
+}
 
 // ContainerWrapper
 function ContainerWrapper({ children, onCloseSidebar, onCloseBurgerMenu }) {
@@ -398,8 +472,9 @@ function AboutAuthorButton({ onAboutAuthorClick }) {
 
 //Back to top button
 
-function BackToTopButton() {
+function BackToTopButton({isDarkMode}) {
   const [isVisible, setIsVisible] = useState(false);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -427,9 +502,13 @@ function BackToTopButton() {
     });
   };
 
+  const backToTopStyles = {
+	backgroundColor: isDarkMode ? "#a0e2d2" : "#333",
+  }
   return (
     <div
       className={`${"backToTop"} ${isVisible ? "visible" : ""}`}
+		style={backToTopStyles}
       onClick={scrollToTop}
     >
       <FontAwesomeIcon icon={faArrowUp} />
@@ -439,7 +518,11 @@ function BackToTopButton() {
 
 //About Author
 
-function AboutAuthor({ showAboutAuthor, onExitClick }) {
+function AboutAuthor({ showAboutAuthor, onExitClick, isDarkMode }) {
+	const backBtnStyles = {
+		backgroundColor: isDarkMode ? "#a0e2d2" : "#333",
+		color: isDarkMode ? "#333" : "#fff",
+	}
   if (!showAboutAuthor) return null;
   return (
     <div className="about-author">
@@ -462,16 +545,8 @@ function AboutAuthor({ showAboutAuthor, onExitClick }) {
         </div>
       </div>
       <div className="about-author-back">
-        <button onClick={onExitClick}>Назад</button>
+        <button onClick={onExitClick} style={backBtnStyles}>Назад</button>
       </div>
     </div>
-  );
-}
-
-function SidebarBtn({ onSidebar }) {
-  return (
-    <button className="sidebar-button" onClick={onSidebar}>
-      <FaAngleRight className="icon-angle" />
-    </button>
   );
 }
