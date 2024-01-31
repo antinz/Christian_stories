@@ -10,14 +10,13 @@ import { FaAngleDown } from "react-icons/fa";
 import { FaAngleUp } from "react-icons/fa";
 import { FaSun } from "react-icons/fa";
 import { FaMoon } from "react-icons/fa";
+import { useLocalStorage } from "./useLocalStorage";
 
 import authorImage from "./assets/author.jpg";
 
 export default function App() {
-  const [selectedBook, setSelectedBook] = useState(() => {
-    const storedBook = localStorage.getItem("lastOpenedBook");
-    return storedBook ? JSON.parse(storedBook) : books[0];
-  });
+
+  const [selectedBook, setSelectedBook] = useLocalStorage([],"lastOpenedBook")
 
   const [showAboutAuthor, setShowAboutAuthor] = useState(false);
   const [isBurgerMenu, setIsBurgerMenu] = useState(false);
@@ -45,7 +44,6 @@ export default function App() {
 
   const handleSelectBook = (book) => {
     setSelectedBook(book);
-    localStorage.setItem("lastOpenedBook", JSON.stringify(book));
   };
 
   const handleOpenSidebar = () => {
@@ -171,7 +169,7 @@ export default function App() {
 //Header
 function Header({ children, isDarkMode }) {
   const headerStyles = {
-    backgroundColor: isDarkMode ? "#a0e2d2" : "#333",
+    backgroundColor: isDarkMode ? "#f9f5c8" : "#333",
     color: isDarkMode ? "#333" : "#fff",
   };
   return (
@@ -303,7 +301,7 @@ function BookCategoryList({
 
 function Main({ children, isDarkMode }) {
   const mainStyles = {
-    backgroundColor: isDarkMode ? "#333" : "#a0e2d2",
+    backgroundColor: isDarkMode ? "#333" : "#f9f5c8",
     color: isDarkMode ? "#fff" : "#333",
   };
   return <main style={mainStyles}>{children}</main>;
@@ -430,7 +428,7 @@ function MainContent({ selectedBook, books, onSymbolClick, isDarkMode }) {
 //  Download PDF button
 function DownloadPDFBtn({isDarkMode, onDownload, url, download}) {
 	const downloadBtnStyles = {
-		backgroundColor: isDarkMode ? "#a0e2d2" : "#333",
+		backgroundColor: isDarkMode ? "#f9f5c8" : "#333",
 		color: isDarkMode ? "#333" : "#fff"
 	}
 
@@ -503,7 +501,7 @@ function BackToTopButton({isDarkMode}) {
   };
 
   const backToTopStyles = {
-	backgroundColor: isDarkMode ? "#a0e2d2" : "#333",
+	backgroundColor: isDarkMode ? "#f9f5c8" : "#333",
   }
   return (
     <div
@@ -520,7 +518,7 @@ function BackToTopButton({isDarkMode}) {
 
 function AboutAuthor({ showAboutAuthor, onExitClick, isDarkMode }) {
 	const backBtnStyles = {
-		backgroundColor: isDarkMode ? "#a0e2d2" : "#333",
+		backgroundColor: isDarkMode ? "#f9f5c8" : "#333",
 		color: isDarkMode ? "#333" : "#fff",
 	}
   if (!showAboutAuthor) return null;

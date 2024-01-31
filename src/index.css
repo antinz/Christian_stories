@@ -1,5 +1,6 @@
 :root {
-	--bg-color: #a0e2d2;
+	--bg-color:#f9f5c8;
+	--secondary-bg-color: #e2aa87;
 	--black-color: #333;
 }
 * {
@@ -516,7 +517,7 @@ li {
 
 .modal-open {
 	overflow-y: hidden;
-	margin-right: 20px;
+	margin-right: 21px;
  }
 .tag {
 	display: inline;
@@ -597,7 +598,7 @@ li {
 	left: 0px;
 	z-index: 5;
 	border: none;
-	background-color: rgb(76, 153, 149);
+	background-color: var(--secondary-bg-color);
 	transform: translateX(-50%);
 	opacity: 1;
 	cursor: pointer;
@@ -610,10 +611,6 @@ li {
 	top: 12px;
 	font-size: 27px;
 	color: #fff;
-}
-
-.sidebar-button:hover {
-	background-color: rgb(215, 226, 225);
 }
 
 .sidebar button {
@@ -705,7 +702,7 @@ li {
 }
 
 .category-box .category-list .inner-li:hover {
-	background-color: rgb(76, 153, 149);
+	background-color: var(--secondary-bg-color);
 }
 
 .selected-category {
