@@ -1,0 +1,81 @@
+.sidebar {
+	position: relative;
+	position: sticky;
+	left: 0;
+	top: 0;
+	width: 100%;
+	min-width: 350px;
+	height: 100vh;
+	flex: 0.6;
+	background-color: #4a4646;
+	border-right: 2px solid #4a4646;
+	opacity: 0.3;
+	display: block;
+	transition: all ease-in-out 0.5s;
+	z-index: 10;
+	overflow-y: scroll;
+}
+
+.sidebar:hover {
+	opacity: 1;
+}
+.sidebar h2 {
+	text-align: center;
+	padding: 15px 0 0;
+	font-size: 30px;
+	color: var(--bg-color);
+}
+
+.sidebar h2:after {
+	content: "";
+	display: block;
+	border-bottom: 3px solid var(--bg-color);
+	margin-top: 15px;
+}
+
+.sidebar a {
+	text-decoration: none;
+	color: #fff;
+	font-size: 22px;
+	font-weight: 600;
+	text-align: center;
+	display: block;
+	padding: 15px 5px;
+	transition:
+		background-color 0.3s,
+		color 0.3s;
+}
+
+.sidebar li {
+	list-style: none;
+}
+.sidebar li:after {
+	content: "";
+	display: block;
+	border-bottom: 1px solid var(--bg-color);
+}
+
+.sidebar a:hover {
+	background-color: var(--bg-color);
+	color: var(--black-color);
+}
+
+
+
+
+.sidebar button {
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	font-size: 25px;
+	color: #fff;
+	cursor: pointer;
+	border: none;
+	background: none;
+}
+
+@media screen and (max-width: 450px) {
+	.sidebar {
+		min-width: 100%;
+	}
+}

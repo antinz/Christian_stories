@@ -1,0 +1,10 @@
+.about-author-btn {
+	font-size: 25px;
+	color: #fff;
+	cursor: pointer;
+	transition: all 0.6s ease;
+	padding: 15px 0;
+}
+.about-author-btn:hover {
+	background-color: var(--bg-color);
+}

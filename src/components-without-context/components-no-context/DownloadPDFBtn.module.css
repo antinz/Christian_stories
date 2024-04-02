@@ -1,0 +1,21 @@
+.download {
+	position: absolute;
+	top: -10px;
+	left: 20px;
+	outline: none;
+	border: none;
+	background-color: var(--black-color);
+	cursor: pointer;
+	padding: 12px;
+	border-radius: 15px;
+	transition: all 0.6s ease;
+	margin: 20px 10px;
+	font-size: 15px;
+	color: #fff;
+	font-weight: 600;
+}
+
+
+.download:hover {
+	opacity: 0.85;
+}
