@@ -6,7 +6,7 @@ export default function SidebarBtn() {
   const { handleOpenSidebar } = useBooks();
   return (
     <button className={styles["sidebar-button"]} onClick={handleOpenSidebar}>
-      <FaAngleRight className="icon-angle" />
+      <FaAngleRight className={styles["icon-angle"]} />
     </button>
   );
 }

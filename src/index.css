@@ -1,5 +1,5 @@
 :root {
-	--bg-color:#f9f5c8;
+	--bg-color: #f9f5c8;
 	--secondary-bg-color: #e2aa87;
 	--black-color: #333;
 }
@@ -18,7 +18,6 @@ body {
 	padding: 0;
 	background-color: var(--bg-color);
 }
-
 
 main {
 	min-width: 100%;
@@ -70,21 +69,19 @@ li {
 	border: none;
 	outline: none;
 	font-size: 30px;
- }
+}
 
- @media screen and (max-width: 800px) {
+@media screen and (max-width: 800px) {
 	.mode-toggle-btn {
 		font-size: 24px;
 		right: 20px;
-
 	}
 }
- @media screen and (max-width: 800px) {
+@media screen and (max-width: 800px) {
 	.mode-toggle-btn {
 		font-size: 24px;
 	}
 }
-
 
 .backToTop.visible {
 	opacity: 0.2;
@@ -100,7 +97,6 @@ li {
 		right: 20px;
 	}
 }
-
 
 .modal-content button {
 	position: absolute;
@@ -121,7 +117,7 @@ li {
 .modal-open:global {
 	overflow-y: hidden;
 	margin-right: 21px;
- }
+}
 .tag {
 	display: inline;
 }
