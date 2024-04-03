@@ -50,7 +50,7 @@ export default function App() {
       </Header>
       <Main isDarkMode={isDarkMode}>
         {isSidebarOpen && <Sidebar />}
-        {!showAboutAuthor && !isSidebarOpen && <SidebarBtn />}
+        {!showAboutAuthor && !isSidebarOpen && !showModal && <SidebarBtn />}
         <ContainerWrapper>
           {showAboutAuthor ? <AboutAuthor /> : <MainContent />}
           {showModal && <SymbolModal />}
