@@ -35,6 +35,22 @@ li {
 	list-style-type: none;
 }
 
+table {
+	border: 1px solid #000;
+	border-collapse: collapse;
+	width: 100%;
+	margin: 35px;
+}
+th {
+	text-align: center;
+}
+th,
+td {
+	border: 1px solid #000;
+	width: 50%;
+	padding: 5px;
+}
+
 .nav-btn {
 	position: absolute;
 	left: 25px;
