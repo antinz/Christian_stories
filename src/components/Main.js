@@ -4,8 +4,8 @@ import { useBooks } from "./contexts/BooksContext";
 export default function Main({ children }) {
   const { isDarkMode } = useBooks();
   const mainStyles = {
-    backgroundColor: isDarkMode ? "#333" : "#f7f3d6",
-    color: isDarkMode ? "#fff" : "#333",
+    backgroundColor: isDarkMode ? "var(--black-color)" : "var(--bg-color)",
+    color: isDarkMode ? "#fff" : "var(--black-color)",
   };
   return <main style={mainStyles}>{children}</main>;
 }

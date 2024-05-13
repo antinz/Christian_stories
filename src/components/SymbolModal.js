@@ -5,8 +5,8 @@ import { useBooks } from "./contexts/BooksContext";
 export default function SymbolModal() {
   const { handleCloseModal, modalContent, isDarkMode } = useBooks();
   const modalStyles = {
-    backgroundColor: isDarkMode ? "#333" : "#fff",
-    color: isDarkMode ? "#333" : "#333",
+    backgroundColor: isDarkMode ? "var(--black-color)" : "#fff",
+    color: isDarkMode ? "var(--black-color)" : "var(--black-color)",
   };
   return (
     <div className={styles.modal} onClick={handleCloseModal}>

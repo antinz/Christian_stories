@@ -7,4 +7,5 @@
 }
 .about-author-btn:hover {
 	background-color: var(--bg-color);
+	color: var(--black-color);
 }

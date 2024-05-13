@@ -8,14 +8,15 @@
 	left: 2px;
 	z-index: 5;
 	border: none;
-	background-color: var(--secondary-bg-color);
+	background-color: #fff;
 	transform: translateX(-50%);
-	opacity: 0.5;
+	opacity: 0.2;
 	cursor: pointer;
 	transition: all ease-in-out 0.5s;
 }
 .sidebar-button:hover {
 	opacity: 1;
+	color: #fff;
 }
 
 .icon-angle {
@@ -24,7 +25,6 @@
 	left: 60%;
 	transform: translate(-50%, -50%);
 	font-size: 27px;
-	color: #fff;
 }
 
 @media screen and (max-width: 720px) {

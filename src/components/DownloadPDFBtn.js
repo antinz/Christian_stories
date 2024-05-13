@@ -4,8 +4,8 @@ import { useBooks } from "./contexts/BooksContext";
 export default function DownloadPDFBtn({ url, download, onDownload }) {
   const { isDarkMode } = useBooks();
   const downloadBtnStyles = {
-    backgroundColor: isDarkMode ? "#f7f3d6" : "#333",
-    color: isDarkMode ? "#333" : "#fff",
+    backgroundColor: isDarkMode ? "var(--bg-color)" : "var(--black-color)",
+    color: isDarkMode ? "var(--black-color)" : "#fff",
   };
 
   return (

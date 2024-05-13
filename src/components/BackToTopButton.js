@@ -35,7 +35,8 @@ export default function BackToTopButton() {
   };
 
   const backToTopStyles = {
-    backgroundColor: isDarkMode ? "#f7f3d6" : "#333",
+    backgroundColor: isDarkMode ? "var(--bg-color)" : "var(--black-color)",
+    color: isDarkMode && "var(--black-color)",
   };
   return (
     <div

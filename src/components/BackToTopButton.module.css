@@ -23,7 +23,7 @@
 }
 .backToTop.visible:hover {
 	opacity: 1;
-	color: var(--black-color);
+	color: #fff;
 }
 
 @media (max-width: 1200px) {

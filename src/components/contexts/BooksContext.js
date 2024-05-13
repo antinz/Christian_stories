@@ -174,7 +174,6 @@ function BooksProvider({ children }) {
         type: "increaseFontSize",
         payload: 2,
       });
-      console.log(fontSize);
     }
   };
 
@@ -184,7 +183,6 @@ function BooksProvider({ children }) {
         type: "decreaseFontSize",
         payload: 2,
       });
-      console.log(fontSize);
     }
   };
 

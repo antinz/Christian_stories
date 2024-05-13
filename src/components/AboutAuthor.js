@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import styles from './AboutAuthor.module.css';
-import { aboutAuthor } from '../articles';
-import { useBooks } from './contexts/BooksContext';
+import React, { useState, useEffect } from "react";
+import styles from "./AboutAuthor.module.css";
+import { aboutAuthor } from "../articles";
+import { useBooks } from "./contexts/BooksContext";
 
 export default function AboutAuthor() {
   const { showAboutAuthor, handleExitClick, isDarkMode } = useBooks();
@@ -10,10 +10,10 @@ export default function AboutAuthor() {
   useEffect(() => {
     const importImage = async () => {
       try {
-        const { default: image } = await import('../assets/author.jpg');
+        const { default: image } = await import("../assets/author.jpg");
         setAuthorImage(image);
       } catch (error) {
-        console.error('Error loading image:', error);
+        console.error("Error loading image:", error);
       }
     };
 
@@ -26,19 +26,19 @@ export default function AboutAuthor() {
   }, []);
 
   const backBtnStyles = {
-    backgroundColor: isDarkMode ? '#f9f5c8' : '#333',
-    color: isDarkMode ? '#333' : '#fff',
+    backgroundColor: isDarkMode ? "var(--bg-color)" : "var(--black-color)",
+    color: isDarkMode ? "var(--black-color)" : "#fff",
   };
 
   if (!showAboutAuthor) return null;
 
   return (
-    <div className={styles['about-author']}>
-      <div className={styles['about-author__center']}>
-        <div className={styles['about-author__image']}>
+    <div className={styles["about-author"]}>
+      <div className={styles["about-author__center"]}>
+        <div className={styles["about-author__image"]}>
           {authorImage && <img src={authorImage} alt="Author" loading="lazy" />}
         </div>
-        <div className={styles['about-author-desc']}>
+        <div className={styles["about-author-desc"]}>
           {aboutAuthor.map((about) => {
             const { title, content, chapterId } = about;
             return (
@@ -52,7 +52,7 @@ export default function AboutAuthor() {
           })}
         </div>
       </div>
-      <div className={styles['about-author-back']}>
+      <div className={styles["about-author-back"]}>
         <button onClick={handleExitClick} style={backBtnStyles}>
           Назад
         </button>
