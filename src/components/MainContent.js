@@ -23,16 +23,6 @@ export default function MainContent() {
 
   return (
     <div className={styles.content}>
-      <div className={styles.changeFontSize}>
-        <FaPlus
-          className={styles.btn}
-          onClick={handleIncreaseFontSize}
-        ></FaPlus>
-        <FaMinus className={styles.btn} onClick={handleDecreaseFontSize}>
-          {FaMinus}
-        </FaMinus>
-      </div>
-
       {books.map((book) => {
         const {
           id,
@@ -54,11 +44,25 @@ export default function MainContent() {
                   {desc}
                 </p>
               ))}
-              <DownloadPDFBtn
-                onDownload={handleDownload}
-                url={url}
-                download={download}
-              />
+              <div className={styles.downloadAndFont}>
+                <div className={styles.changeFontSize}>
+                  <FaPlus
+                    className={styles.btn}
+                    onClick={handleIncreaseFontSize}
+                  ></FaPlus>
+                  <FaMinus
+                    className={styles.btn}
+                    onClick={handleDecreaseFontSize}
+                  >
+                    {FaMinus}
+                  </FaMinus>
+                </div>
+                <DownloadPDFBtn
+                  onDownload={handleDownload}
+                  url={url}
+                  download={download}
+                />
+              </div>
               {content.map((chapter, chapterIndex) => {
                 const { title, text, chapterId } = chapter;
 
