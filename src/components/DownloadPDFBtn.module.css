@@ -1,6 +1,6 @@
 .download {
 	position: absolute;
-	top: -10px;
+	top: 1px;
 	left: 20px;
 	outline: none;
 	border: none;
@@ -14,7 +14,6 @@
 	color: #fff;
 	font-weight: 600;
 }
-
 
 .download:hover {
 	opacity: 0.85;

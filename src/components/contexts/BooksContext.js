@@ -10,7 +10,10 @@ const initialState = {
   isSidebarOpen: false,
   selectedCategory: null,
   isDarkMode: localStorage.getItem("darkMode") === "true",
+  fontSize: parseInt(localStorage.getItem("fontSize")) || 25,
 };
+
+const MIN_FONT_SIZE = 10;
 
 function reducer(state, action) {
   switch (action.type) {
@@ -70,6 +73,20 @@ function reducer(state, action) {
         ...state,
         isDarkMode: action.payload,
       };
+    case "increaseFontSize":
+      const increasedSize = state.fontSize + action.payload;
+      localStorage.setItem("fontSize", increasedSize.toString());
+      return {
+        ...state,
+        fontSize: increasedSize,
+      };
+    case "decreaseFontSize":
+      const decreasedSize = state.fontSize - action.payload;
+      localStorage.setItem("fontSize", decreasedSize.toString());
+      return {
+        ...state,
+        fontSize: decreasedSize,
+      };
 
     default:
       throw new Error("Unknown error");
@@ -88,6 +105,7 @@ function BooksProvider({ children }) {
       isSidebarOpen,
       selectedCategory,
       isDarkMode,
+      fontSize,
     },
     dispatch,
   ] = useReducer(reducer, initialState);
@@ -149,6 +167,24 @@ function BooksProvider({ children }) {
     localStorage.setItem("darkMode", newMode);
   };
 
+  const handleIncreaseFontSize = () => {
+    dispatch({
+      type: "increaseFontSize",
+      payload: 2,
+    });
+    console.log(fontSize);
+  };
+
+  const handleDecreaseFontSize = () => {
+    if (fontSize > MIN_FONT_SIZE) {
+      dispatch({
+        type: "decreaseFontSize",
+        payload: 2,
+      });
+      console.log(fontSize);
+    }
+  };
+
   useEffect(() => {
     if (showModal) {
       document.body.classList.add("modal-open");
@@ -181,6 +217,9 @@ function BooksProvider({ children }) {
         handleToggleDarkMode,
         books,
         selectedBook,
+        fontSize,
+        handleIncreaseFontSize,
+        handleDecreaseFontSize,
       }}
     >
       {children}

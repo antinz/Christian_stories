@@ -3,9 +3,16 @@ import React, { Fragment } from "react";
 import DownloadPDFBtn from "../components/DownloadPDFBtn";
 import { useBooks } from "./contexts/BooksContext";
 import { books } from "../articles";
+import { FaMinus, FaPlus } from "react-icons/fa";
 
 export default function MainContent() {
-  const { selectedBook, handleOpenModal } = useBooks();
+  const {
+    selectedBook,
+    handleOpenModal,
+    handleIncreaseFontSize,
+    handleDecreaseFontSize,
+    fontSize,
+  } = useBooks();
   const handleDownload = (url, download) => {
     const anchor = document.createElement("a");
     anchor.href = url;
@@ -16,7 +23,16 @@ export default function MainContent() {
 
   return (
     <div className={styles.content}>
-      <h3 className={styles.author}>Михаил Нагирняк</h3>
+      <div className={styles.changeFontSize}>
+        <FaPlus
+          className={styles.btn}
+          onClick={handleIncreaseFontSize}
+        ></FaPlus>
+        <FaMinus className={styles.btn} onClick={handleDecreaseFontSize}>
+          {FaMinus}
+        </FaMinus>
+      </div>
+
       {books.map((book) => {
         const {
           id,
@@ -59,7 +75,13 @@ export default function MainContent() {
                           typeof paragraph === "string" &&
                           paragraph.includes("💡");
                         return (
-                          <p key={paragraphIndex}>
+                          <p
+                            key={paragraphIndex}
+                            style={{
+                              fontSize: `${fontSize}px`,
+                              lineHeight: 1.5,
+                            }}
+                          >
                             {hasSymbol
                               ? paragraph.split("💡").map((tag, index) => {
                                   const localTag = bookTags.find(

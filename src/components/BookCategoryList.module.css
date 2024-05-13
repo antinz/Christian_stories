@@ -33,6 +33,7 @@
 
 .category-list-item:hover {
 	background-color: var(--bg-color);
+	color: #000;
 }
 .angle-icon {
 	font-size: 30px;

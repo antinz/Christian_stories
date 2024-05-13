@@ -1,6 +1,6 @@
 :root {
-	--bg-color: #f9f5c8;
-	--secondary-bg-color: #e2aa87;
+	--bg-color: #f7f3d6;
+	--secondary-bg-color: #73684a;
 	--black-color: #333;
 }
 * {
@@ -38,8 +38,9 @@ li {
 table {
 	border: 1px solid #000;
 	border-collapse: collapse;
-	width: 100%;
-	margin: 35px;
+	width: 97%;
+	margin: 25px 0 25px;
+	font-size: 18px !important;
 }
 th {
 	text-align: center;
@@ -48,7 +49,7 @@ th,
 td {
 	border: 1px solid #000;
 	width: 50%;
-	padding: 5px;
+	padding: 10px;
 }
 
 .nav-btn {

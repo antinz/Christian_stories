@@ -1,50 +1,49 @@
-import { useState, useEffect } from 'react';
-import React from 'react';
-import { FaArrowUp } from 'react-icons/fa';
+import { useState, useEffect } from "react";
+import React from "react";
+import { FaArrowUp } from "react-icons/fa";
 
-import styles from './BackToTopButton.module.css'
-import { useBooks } from './contexts/BooksContext';
+import styles from "./BackToTopButton.module.css";
+import { useBooks } from "./contexts/BooksContext";
 export default function BackToTopButton() {
-	const {isDarkMode} = useBooks();
-	const [isVisible, setIsVisible] = useState(false);
- 
- 
-	useEffect(() => {
-	  const handleScroll = () => {
-		 if (
-			window.pageYOffset > 800 ||
-			document.documentElement.scrollTop > 800
-		 ) {
-			setIsVisible(true);
-		 } else {
-			setIsVisible(false);
-		 }
-	  };
- 
-	  window.addEventListener("scroll", handleScroll);
- 
-	  return () => {
-		 window.removeEventListener("scroll", handleScroll);
-	  };
-	}, []);
- 
-	const scrollToTop = () => {
-	  window.scrollTo({
-		 top: 0,
-		 behavior: "smooth",
-	  });
-	};
- 
-	const backToTopStyles = {
-	 backgroundColor: isDarkMode ? "#f9f5c8" : "#333",
-	}
-	return (
-	  <div
-		 className={`${styles.backToTop} ${isVisible ? styles.visible : ""}`}
-		 style={backToTopStyles}
-		 onClick={scrollToTop}
-	  >
-		 <FaArrowUp />
-	  </div>
-	);
- }
+  const { isDarkMode } = useBooks();
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.pageYOffset > 800 ||
+        document.documentElement.scrollTop > 800
+      ) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const backToTopStyles = {
+    backgroundColor: isDarkMode ? "#f7f3d6" : "#333",
+  };
+  return (
+    <div
+      className={`${styles.backToTop} ${isVisible ? styles.visible : ""}`}
+      style={backToTopStyles}
+      onClick={scrollToTop}
+    >
+      <FaArrowUp />
+    </div>
+  );
+}
