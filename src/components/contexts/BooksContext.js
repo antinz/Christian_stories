@@ -13,7 +13,8 @@ const initialState = {
   fontSize: parseInt(localStorage.getItem("fontSize")) || 25,
 };
 
-const MIN_FONT_SIZE = 10;
+const MIN_FONT_SIZE = 15;
+const MAX_FONT_SIZE = 30;
 
 function reducer(state, action) {
   switch (action.type) {
@@ -168,18 +169,20 @@ function BooksProvider({ children }) {
   };
 
   const handleIncreaseFontSize = () => {
-    dispatch({
-      type: "increaseFontSize",
-      payload: 2,
-    });
-    console.log(fontSize);
+    if (fontSize <= MAX_FONT_SIZE) {
+      dispatch({
+        type: "increaseFontSize",
+        payload: 1,
+      });
+      console.log(fontSize);
+    }
   };
 
   const handleDecreaseFontSize = () => {
-    if (fontSize > MIN_FONT_SIZE) {
+    if (fontSize >= MIN_FONT_SIZE) {
       dispatch({
         type: "decreaseFontSize",
-        payload: 2,
+        payload: 1,
       });
       console.log(fontSize);
     }
