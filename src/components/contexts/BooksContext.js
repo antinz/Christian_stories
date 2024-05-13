@@ -14,7 +14,7 @@ const initialState = {
 };
 
 const MIN_FONT_SIZE = 15;
-const MAX_FONT_SIZE = 28;
+const MAX_FONT_SIZE = 29;
 
 function reducer(state, action) {
   switch (action.type) {

@@ -21,7 +21,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
-	gap: 1.5rem;
+	gap: 1.2rem;
 	margin: 1rem;
 }
 
@@ -29,6 +29,9 @@
 	font-size: 1.6rem;
 	cursor: pointer;
 	transition: all 0.3s ease;
+}
+.content .changeFontSize .btn:nth-child(2) {
+	font-size: 1rem;
 }
 
 .content .changeFontSize .btn:hover,
@@ -99,9 +102,24 @@
 	}
 
 	.content .changeFontSize .btn {
+		font-size: 1.4rem;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.book h1 {
+		font-size: 1.3rem;
+	}
+
+	.book h4 {
 		font-size: 1rem;
 	}
-	.content .changeFontSize {
-		gap: 1rem;
+
+	.description {
+		font-size: 1rem;
+	}
+
+	.book-content h2 {
+		font-size: 1.1rem;
 	}
 }

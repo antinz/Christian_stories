@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import DownloadPDFBtn from "../components/DownloadPDFBtn";
 import { useBooks } from "./contexts/BooksContext";
 import { books } from "../articles";
-import { FaMinus, FaPlus } from "react-icons/fa";
+import { FaFont } from "react-icons/fa";
 
 export default function MainContent() {
   const {
@@ -46,16 +46,14 @@ export default function MainContent() {
               ))}
               <div className={styles.downloadAndFont}>
                 <div className={styles.changeFontSize}>
-                  <FaPlus
+                  <FaFont
                     className={styles.btn}
                     onClick={handleIncreaseFontSize}
-                  ></FaPlus>
-                  <FaMinus
+                  ></FaFont>
+                  <FaFont
                     className={styles.btn}
                     onClick={handleDecreaseFontSize}
-                  >
-                    {FaMinus}
-                  </FaMinus>
+                  ></FaFont>
                 </div>
                 <DownloadPDFBtn
                   onDownload={handleDownload}
