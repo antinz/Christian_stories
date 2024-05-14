@@ -69,19 +69,28 @@ export default function MainContent() {
                     className={styles["book-content"]}
                     key={chapterIndex}
                     id={chapterId}
-                    style={{
-                      fontSize: `${fontSize}px`,
-                      lineHeight: 1.5,
-                    }}
                   >
-                    <h2>{title}</h2>
+                    <h2
+                      style={{
+                        fontSize: `${fontSize}px`,
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {title}
+                    </h2>
                     {Array.isArray(text) ? (
                       text.map((paragraph, paragraphIndex) => {
                         const hasSymbol =
                           typeof paragraph === "string" &&
                           paragraph.includes("💡");
                         return (
-                          <p key={paragraphIndex}>
+                          <p
+                            key={paragraphIndex}
+                            style={{
+                              fontSize: `${fontSize}px`,
+                              lineHeight: 1.5,
+                            }}
+                          >
                             {hasSymbol
                               ? paragraph.split("💡").map((tag, index) => {
                                   const localTag = bookTags.find(
