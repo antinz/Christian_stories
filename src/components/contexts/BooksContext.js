@@ -11,6 +11,8 @@ const initialState = {
   selectedCategory: null,
   isDarkMode: localStorage.getItem("darkMode") === "true",
   fontSize: parseInt(localStorage.getItem("fontSize")) || 25,
+  currentChapterIndex:
+    parseInt(localStorage.getItem("currentChapterIndex")) || 0,
 };
 
 const MIN_FONT_SIZE = 15;
@@ -88,7 +90,20 @@ function reducer(state, action) {
         ...state,
         fontSize: decreasedSize,
       };
-
+    case "goToPrevChapter":
+      const prevChapterIndex = state.currentChapterIndex - action.payload;
+      localStorage.setItem("currentChapterIndex", prevChapterIndex.toString());
+      return {
+        ...state,
+        currentChapterIndex: prevChapterIndex,
+      };
+    case "goToNextChapter":
+      const nextChapterIndex = state.currentChapterIndex + action.payload;
+      localStorage.setItem("currentChapterIndex", nextChapterIndex.toString());
+      return {
+        ...state,
+        currentChapterIndex: nextChapterIndex,
+      };
     default:
       throw new Error("Unknown error");
   }
@@ -107,6 +122,7 @@ function BooksProvider({ children }) {
       selectedCategory,
       isDarkMode,
       fontSize,
+      currentChapterIndex,
     },
     dispatch,
   ] = useReducer(reducer, initialState);
@@ -138,6 +154,7 @@ function BooksProvider({ children }) {
   const handleOpenSidebar = () => {
     dispatch({ type: "openSidebar" });
   };
+
   const handleCloseSidebar = () => {
     dispatch({ type: "closeSidebar" });
   };
@@ -154,6 +171,7 @@ function BooksProvider({ children }) {
   const handleSymbolClick = () => {
     dispatch({ type: "closeModalScreen" });
   };
+
   const handleAboutAuthorClick = () => {
     dispatch({ type: "showAboutAuthor" });
     handleCloseBurgerMenu();
@@ -162,6 +180,7 @@ function BooksProvider({ children }) {
   const handleExitClick = () => {
     dispatch({ type: "closeAboutAuthor" });
   };
+
   const handleToggleDarkMode = () => {
     const newMode = !isDarkMode;
     dispatch({ type: "darkModeToggle", payload: newMode });
@@ -185,6 +204,22 @@ function BooksProvider({ children }) {
       });
     }
   };
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "auto",
+    });
+  };
+
+  const handlePreviousChapter = () => {
+    dispatch({ type: "goToPrevChapter", payload: 1 });
+    handleScrollToTop();
+  };
+
+  const handleNextChapter = () => {
+    dispatch({ type: "goToNextChapter", payload: 1 });
+    handleScrollToTop();
+  };
 
   useEffect(() => {
     if (showModal) {
@@ -192,7 +227,7 @@ function BooksProvider({ children }) {
     } else {
       document.body.classList.remove("modal-open");
     }
-  }, [showModal]);
+  }, [showModal, currentChapterIndex]);
 
   return (
     <BooksContext.Provider
@@ -219,8 +254,12 @@ function BooksProvider({ children }) {
         books,
         selectedBook,
         fontSize,
+        currentChapterIndex,
+        dispatch,
         handleIncreaseFontSize,
         handleDecreaseFontSize,
+        handleNextChapter,
+        handlePreviousChapter,
       }}
     >
       {children}

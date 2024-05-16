@@ -1,0 +1,38 @@
+.pagination {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 3rem;
+	margin: 10px;
+}
+.pagination button {
+	border: none;
+	background-color: var(--black-color);
+	color: #fff;
+	padding: 12px;
+	border-radius: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+	font-size: 15px;
+	cursor: pointer;
+}
+.pagination button:hover {
+	opacity: 0.85;
+}
+@media screen and (max-width: 400px) {
+	.pagination {
+		gap: 1rem;
+	}
+	.pagination button {
+		padding: 8px;
+		border-radius: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.3rem;
+		font-size: 15px;
+		cursor: pointer;
+	}
+}

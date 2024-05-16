@@ -31,7 +31,7 @@
 	transition: all 0.3s ease;
 }
 .content .changeFontSize .btn:nth-child(2) {
-	font-size: 0.9rem;
+	font-size: 1rem;
 }
 
 .content .changeFontSize .btn:hover,

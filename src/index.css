@@ -1,5 +1,5 @@
 :root {
-	--bg-color: #f6f3ed;
+	--bg-color: #ebeae8;
 	--secondary-bg-color: #413c31;
 	--black-color: #333;
 }
@@ -7,9 +7,6 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-}
-html {
-	scroll-behavior: smooth;
 }
 
 body {

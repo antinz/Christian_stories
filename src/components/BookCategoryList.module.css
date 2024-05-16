@@ -73,3 +73,8 @@
 	color: #000;
 	font-weight: 600;
 }
+
+.book-list {
+	max-height: 350px;
+	overflow-y: auto;
+}
