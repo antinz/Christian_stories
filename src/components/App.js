@@ -7,8 +7,6 @@ import BurgerMenu from "./BurgerMenu";
 import BookCategoryList from "./BookCategoryList";
 import AboutAuthorButton from "./AboutAuthorButton";
 import Main from "./Main";
-import Sidebar from "./Sidebar";
-import SidebarBtn from "./SidebarBtn";
 import ContainerWrapper from "./ContainerWrapper";
 import AboutAuthor from "./AboutAuthor";
 import MainContent from "./MainContent";
@@ -23,7 +21,6 @@ export default function App() {
     isDarkMode,
     handleToggleDarkMode,
     isBurgerMenu,
-    isSidebarOpen,
     showModal,
   } = useBooks();
   return (

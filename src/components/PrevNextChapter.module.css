@@ -26,13 +26,8 @@
 		gap: 1rem;
 	}
 	.pagination button {
-		padding: 8px;
-		border-radius: 20px;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
+		padding: 9px;
 		gap: 0.3rem;
-		font-size: 15px;
-		cursor: pointer;
+		font-size: 12px;
 	}
 }

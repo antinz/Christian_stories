@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import DownloadPDFBtn from "./DownloadPDFBtn";
 import { useBooks } from "./contexts/BooksContext";
 import { books } from "../articles";
-import { FaFont, FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FaFont } from "react-icons/fa";
 import PrevNextChapter from "./PrevNextChapter";
 
 export default function MainContent() {
@@ -12,8 +12,6 @@ export default function MainContent() {
     handleOpenModal,
     handleIncreaseFontSize,
     handleDecreaseFontSize,
-    handleNextChapter,
-    handlePreviousChapter,
     currentChapterIndex,
     fontSize,
   } = useBooks();
@@ -41,7 +39,6 @@ export default function MainContent() {
         if (selectedBook && selectedBook.id === id) {
           return (
             <div key={id} className={styles.book}>
-              {/* Display title, subtitle, and description only when currentChapterIndex is 0 */}
               {currentChapterIndex === 0 && (
                 <div>
                   <h1>{bookTitle}</h1>

@@ -8,17 +8,23 @@ function PrevNextChapter() {
     handlePreviousChapter,
     selectedBook,
     currentChapterIndex,
+    isDarkMode,
   } = useBooks();
+
+  const prevNextChapterStyles = {
+    backgroundColor: isDarkMode ? "var(--bg-color)" : "var(--black-color)",
+    color: isDarkMode ? "var(--black-color)" : "#fff",
+  };
   return (
     <div className={styles.pagination}>
       {currentChapterIndex > 0 && (
-        <button onClick={handlePreviousChapter}>
+        <button onClick={handlePreviousChapter} style={prevNextChapterStyles}>
           <FaArrowLeft />
           Предыдущая
         </button>
       )}
       {currentChapterIndex < selectedBook.content.length - 1 && (
-        <button onClick={handleNextChapter}>
+        <button onClick={handleNextChapter} style={prevNextChapterStyles}>
           Следующая
           <FaArrowRight />
         </button>
