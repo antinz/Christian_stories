@@ -128,7 +128,7 @@ function BooksProvider({ children }) {
   ] = useReducer(reducer, initialState);
 
   const [selectedBook, setSelectedBook] = useLocalStorage(
-    null,
+    books[0],
     "lastOpenedBook"
   );
 

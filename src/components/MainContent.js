@@ -77,7 +77,7 @@ export default function MainContent() {
                       key={chapterIndex}
                       id={chapterId}
                     >
-                      <PrevNextChapter />
+                      {currentChapterIndex === 0 ? "" : <PrevNextChapter />}
                       <h2
                         style={{
                           fontSize: `${fontSize}px`,
