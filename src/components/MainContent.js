@@ -70,7 +70,6 @@ export default function MainContent() {
               {content.map((chapter, chapterIndex) => {
                 if (chapterIndex === currentChapterIndex) {
                   const { title, text, chapterId, bookTags } = chapter;
-
                   return (
                     <div
                       className={styles["book-content"]}
@@ -132,6 +131,7 @@ export default function MainContent() {
                     </div>
                   );
                 }
+                return null;
               })}
             </div>
           );
