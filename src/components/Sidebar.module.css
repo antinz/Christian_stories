@@ -33,29 +33,32 @@
 	margin-top: 15px;
 }
 
-.sidebar a {
+.sidebar li {
+	position: relative;
 	text-decoration: none;
+	list-style: none;
 	color: #fff;
 	font-size: 22px;
 	font-weight: 600;
 	text-align: center;
 	display: block;
-	padding: 15px 5px;
+	padding: 12px 5px;
 	transition:
 		background-color 0.3s,
 		color 0.3s;
 }
 
-.sidebar li {
-	list-style: none;
-}
 .sidebar li:after {
 	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
 	display: block;
 	border-bottom: 1px solid var(--bg-color);
 }
 
-.sidebar a:hover {
+.sidebar li:hover {
 	background-color: var(--bg-color);
 	color: var(--black-color);
 }
@@ -69,6 +72,11 @@
 	cursor: pointer;
 	border: none;
 	background: none;
+}
+
+.sidebar li.active {
+	background-color: #fff;
+	color: var(--black-color);
 }
 
 @media screen and (max-width: 600px) {

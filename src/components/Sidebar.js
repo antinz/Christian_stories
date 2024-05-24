@@ -4,7 +4,12 @@ import { FaTimes } from "react-icons/fa";
 import { useBooks } from "./contexts/BooksContext";
 
 export default function Sidebar() {
-  const { selectedBook, handleCloseSidebar } = useBooks();
+  const {
+    selectedBook,
+    handleCloseSidebar,
+    currentChapterIndex,
+    handleGoToChapter,
+  } = useBooks();
   const bookChapters = selectedBook;
   const { content } = bookChapters;
   return (
@@ -15,13 +20,17 @@ export default function Sidebar() {
       </button>
       <ul>
         {content.map((chapterTitle, index) => {
-          const { title, chapterId } = chapterTitle;
-          const anchorLink = `#${chapterId}`;
+          const { title } = chapterTitle;
           return (
-            <li key={index}>
-              <a href={anchorLink} onClick={() => handleCloseSidebar(false)}>
-                {title}
-              </a>
+            <li
+              key={index}
+              onClick={() => {
+                handleGoToChapter(index);
+                handleCloseSidebar(false);
+              }}
+              className={currentChapterIndex === index ? styles.active : ""}
+            >
+              {title}
             </li>
           );
         })}

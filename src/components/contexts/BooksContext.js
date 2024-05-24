@@ -104,6 +104,13 @@ function reducer(state, action) {
         ...state,
         currentChapterIndex: nextChapterIndex,
       };
+
+    case "goToChapter":
+      localStorage.setItem("currentChapterIndex", action.payload.toString());
+      return {
+        ...state,
+        currentChapterIndex: action.payload,
+      };
     default:
       throw new Error("Unknown error");
   }
@@ -221,6 +228,11 @@ function BooksProvider({ children }) {
     handleScrollToTop();
   };
 
+  const handleGoToChapter = (chapterIndex) => {
+    dispatch({ type: "goToChapter", payload: chapterIndex });
+    handleScrollToTop();
+  };
+
   useEffect(() => {
     if (showModal) {
       document.body.classList.add("modal-open");
@@ -260,6 +272,7 @@ function BooksProvider({ children }) {
         handleDecreaseFontSize,
         handleNextChapter,
         handlePreviousChapter,
+        handleGoToChapter,
       }}
     >
       {children}

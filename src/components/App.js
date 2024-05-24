@@ -13,6 +13,8 @@ import MainContent from "./MainContent";
 import SymbolModal from "./SymbolModal";
 import BackToTopButton from "./BackToTopButton";
 import { useBooks } from "./contexts/BooksContext";
+import SidebarBtn from "./SidebarBtn";
+import Sidebar from "./Sidebar";
 
 export default function App() {
   const {
@@ -22,6 +24,7 @@ export default function App() {
     handleToggleDarkMode,
     isBurgerMenu,
     showModal,
+    isSidebarOpen,
   } = useBooks();
   return (
     <>
@@ -46,8 +49,8 @@ export default function App() {
         )}
       </Header>
       <Main isDarkMode={isDarkMode}>
-        {/* {isSidebarOpen && <Sidebar />} */}
-        {/* {!showAboutAuthor && !isSidebarOpen && !showModal && <SidebarBtn />} */}
+        {isSidebarOpen && <Sidebar />}
+        {!showAboutAuthor && !isSidebarOpen && !showModal && <SidebarBtn />}
         <ContainerWrapper>
           {showAboutAuthor ? <AboutAuthor /> : <MainContent />}
           {showModal && <SymbolModal />}
