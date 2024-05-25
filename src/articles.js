@@ -6239,12 +6239,8 @@ export const books = [
         ],
       },
       {
-        chapterId: "kanony-kanonicheskoho-prava",
-        title: "Каноны канонического права",
-      },
-      {
         chapterId: "sviaschennoe-pisanie",
-        title: "Священное Писание",
+        title: "Каноны канонического права. Священное Писание",
         text: [
           <b>
             Канон 1. В церквах евангельских христиан-баптистов проповедуется
@@ -6836,12 +6832,8 @@ export const books = [
         ],
       },
       {
-        chapterId: "principy-hristianskoy-zhizni",
-        title: "Принципы христианской жизни",
-      },
-      {
         chapterId: "brak-y-semia",
-        title: "Брак и семья",
+        title: "Принципы христианской жизни.Брак и семья",
         text: [
           <b>
             Канон 26. Евангельские христиане-баптисты признают исключительно
@@ -6914,12 +6906,9 @@ export const books = [
         ],
       },
       {
-        chapterId: "svoboda-hristianina-y-svoboda-sovesti",
-        title: "Свобода христианина и свобода совести",
-      },
-      {
         chapterId: "otnoshenie-k-gosudarstvu-y-obiazannosti",
-        title: "Отношение к государству и обязанности перед обществом",
+        title:
+          "Свобода христианина и свобода совести. Отношение к государству и обязанности перед обществом",
         bookTags: [
           {
             contentId: 31,
@@ -7059,12 +7048,8 @@ export const books = [
         ],
       },
       {
-        chapterId: "hristianin-y-dobrye-dela",
-        title: "Христианин и добрые дела",
-      },
-      {
         chapterId: "princypy-hristianskoho-sluzhenia",
-        title: "Принципы христианского служения",
+        title: "Христианин и добрые дела. Принципы христианского служения",
         text: [
           <b>
             Канон 32. Социальное служение не может быть главным в служении
@@ -7088,12 +7073,8 @@ export const books = [
         ],
       },
       {
-        chapterId: "sluzhiteli-tserkvi",
-        title: "Служители церкви.",
-      },
-      {
         chapterId: "presvitery",
-        title: "Пресвитеры",
+        title: "Служители церкви. Пресвитеры",
         bookTags: [
           {
             contentId: 31,

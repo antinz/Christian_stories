@@ -1,29 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./AboutAuthor.module.css";
 import { aboutAuthor } from "../articles";
 import { useBooks } from "./contexts/BooksContext";
+import authorImage from "../assets/author.jpg";
 
 export default function AboutAuthor() {
   const { showAboutAuthor, handleExitClick, isDarkMode } = useBooks();
-  const [authorImage, setAuthorImage] = useState(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
-  useEffect(() => {
-    const importImage = async () => {
-      try {
-        const { default: image } = await import("../assets/author.jpg");
-        setAuthorImage(image);
-      } catch (error) {
-        console.error("Error loading image:", error);
-      }
-    };
-
-    importImage();
-
-    // Clean up function
-    return () => {
-      setAuthorImage(null);
-    };
-  }, []);
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
 
   const backBtnStyles = {
     backgroundColor: isDarkMode ? "var(--bg-color)" : "var(--black-color)",
@@ -36,13 +23,19 @@ export default function AboutAuthor() {
     <div className={styles["about-author"]}>
       <div className={styles["about-author__center"]}>
         <div className={styles["about-author__image"]}>
-          {authorImage && <img src={authorImage} alt="Author" loading="lazy" />}
+          <img
+            src={authorImage}
+            alt="Author"
+            loading="lazy"
+            onLoad={handleImageLoad}
+            className={imageLoaded ? styles.loaded : styles.loading}
+          />
         </div>
         <div className={styles["about-author-desc"]}>
           {aboutAuthor.map((about) => {
             const { title, content, chapterId } = about;
             return (
-              <div key={chapterId}>
+              <div key={title}>
                 <h1 id={chapterId}>{title}</h1>
                 {content.map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>

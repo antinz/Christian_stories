@@ -26,6 +26,37 @@ export default function App() {
     showModal,
     isSidebarOpen,
   } = useBooks();
+
+  if (isSidebarOpen && window.innerWidth <= 800) {
+    return (
+      <>
+        <Header>
+          <button className="mode-toggle-btn" onClick={handleToggleDarkMode}>
+            {isDarkMode ? <FaSun style={{ color: "#333" }} /> : <FaMoon />}
+          </button>
+        </Header>
+        <Main isDarkMode={isDarkMode}>
+          <Sidebar />
+        </Main>
+      </>
+    );
+  }
+
+  if (showAboutAuthor) {
+    return (
+      <>
+        <Header>
+          <button className="mode-toggle-btn" onClick={handleToggleDarkMode}>
+            {isDarkMode ? <FaSun style={{ color: "#333" }} /> : <FaMoon />}
+          </button>
+        </Header>
+        <Main isDarkMode={isDarkMode}>
+          <AboutAuthor />
+        </Main>
+      </>
+    );
+  }
+
   return (
     <>
       <Header>
@@ -52,7 +83,7 @@ export default function App() {
         {isSidebarOpen && <Sidebar />}
         {!showAboutAuthor && !isSidebarOpen && !showModal && <SidebarBtn />}
         <ContainerWrapper>
-          {showAboutAuthor ? <AboutAuthor /> : <MainContent />}
+          <MainContent />
           {showModal && <SymbolModal />}
           <BackToTopButton />
         </ContainerWrapper>
